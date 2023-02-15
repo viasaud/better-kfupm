@@ -68,7 +68,7 @@ function TrendingComponent(props) {
   return (
     <div className="bg-mid-green w-72 md:mx-3 mb-10 xl:mb-0 h-32 rounded-lg ">
       <p className="pl-3 pt-2 text-2xl font-Montserrat font-bold text-jetBlack opacity-80">{props.number}</p>
-      <p className="pl-3 pt-2 text-3xl font-mono text-white uppercase">{props.name}</p>
+      <p className="pl-3 py-1 text-3xl font-mono text-jetBlack font-semibold uppercase">{props.name}</p>
       <div className="flex flex-row py-1 pl-3 font-Roboto">
         <img src={EvaluationIcon} alt="Evaluation Icon" width="25px" className="opacity-60" />
         <p className="text-white px-2">
