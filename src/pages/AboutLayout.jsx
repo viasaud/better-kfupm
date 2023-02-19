@@ -1,25 +1,22 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Outlet } from "react-router-dom";
 
-const AboutLayout = () => {
-    return (
-        <>
-            <Navbar />
-            <div className="bg-background mx-auto py-12 px-2 sm:px-6 lg:px-8">
-                <h1 className="text-start font-Montserrat font-semibold text-2xl text-jetBlack md:text-5xl">
-                    About BetterKFUPM
-                </h1>
-                <p className="text-start font-NotoSerif text-l text-dark-green mt-6 md:text-2xl">
-                    BetterKFUPM is a website allow KFUPM students to provide feedback to all KFUPM buildings, KFUPM E-services, External services inside the university Campus.
-                    <br /><br />
-                    BetterKfupm will help KFUPM and external servises providors to receive complaints and positive feedback to their services or product that they provide.
-                </p>
-            </div>
-            <Footer />
-            <Outlet />
-        </>
-    )
+export default function AboutLayout() {
+  return (
+    <div className="bg-background ">
+      <Navbar name="About" />
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-10 h-screen">
+        <h1 className="font-Montserrat text-jetBlack font-semibold text-4xl">About BetterKFUPM</h1>
+        <p className="font-Roboto text-mid-green text-xl pt-10 pb-3">
+          BetterKFUPM is a website allow KFUPM students to provide feedback to all KFUPM buildings, KFUPM E-services, External services
+          inside the university Campus.
+          <br />
+          <br />
+          BetterKfupm will help KFUPM and external servises providors to receive complaints and positive feedback to their services or
+          product that they provide.
+        </p>
+      </div>
+      <Footer />
+    </div>
+  );
 }
-
-export default AboutLayout;

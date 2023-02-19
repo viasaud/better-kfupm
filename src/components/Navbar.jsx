@@ -2,17 +2,17 @@ import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Home", href: "#", current: true },
-  { name: "About", href: "", current: false },
-  { name: "FAQ", href: "#", current: false },
-  { name: "Contact Us", href: "#", current: false },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "FAQ", href: "/faq" },
+  { name: "Contact Us", href: "/contact-us" },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar() {
+export default function Navbar(props) {
   return (
     <Disclosure as="nav" className="bg-background border-b-2 border-dark-green font-Roboto">
       {({ open }) => (
@@ -41,10 +41,10 @@ export default function Navbar() {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current ? " text-mid-green" : "text-jetBlack hover:text-mid-green",
+                          item.name == props.name ? " text-mid-green" : "text-jetBlack hover:text-mid-green",
                           "px-3 py-2 text-md "
                         )}
-                        aria-current={item.current ? "page" : undefined}
+                        aria-current={item.name == props.name ? "page" : undefined}
                       >
                         {item.name}
                       </a>
@@ -67,8 +67,11 @@ export default function Navbar() {
                   key={item.name}
                   as="a"
                   href={item.href}
-                  className={classNames(item.current ? "text-mid-green" : "text-jetBlack hover:text-mid-green", "block px-3 py-2")}
-                  aria-current={item.current ? "page" : undefined}
+                  className={classNames(
+                    item.name == props.name ? "text-mid-green" : "text-jetBlack hover:text-mid-green",
+                    "block px-3 py-2"
+                  )}
+                  aria-current={item.name == props.name ? "page" : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
