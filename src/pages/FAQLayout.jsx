@@ -1,0 +1,35 @@
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { Outlet } from "react-router-dom";
+
+export default function FAQLayout() {
+  return (
+    <div class="bg-background">
+      <Navbar name="FAQ" />
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-10">
+        <h1 className="font-Montserrat text-jetBlack font-semibold text-4xl">FAQ</h1>
+        <Question text="What is BetterKFUPM and why should I use it?" />
+        <Answer text="lorem lorem lorem lorem" />
+        <Question text="What is BetterKFUPM and why should I use iM and why should I use iM and why should I use iM and why should I use it?" />
+        <Answer text="lorem lorem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem lorem" />
+        <Question text="What is BetterKFUPM and why should I use it?" />
+        <Answer text="lorem lorem lorem lorem" />
+        <Question text="What is BetterKFUPM and why should I use iM and why should I use iM and why should I use iM and why should I use it?" />
+        <Answer text="lorem lorem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem lorem" />
+        <Question text="What is BetterKFUPM and why should I use it?" />
+        <Answer text="lorem lorem lorem lorem" />
+        <Question text="What is BetterKFUPM and why should I use iM and why should I use iM and why should I use iM and why should I use it?" />
+        <Answer text="lorem lorem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem lorem" />
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+function Question(props) {
+  return <p className="font-Roboto text-jetBlack text-xl pt-10 pb-3 font-semibold">{props.text}</p>;
+}
+
+function Answer(props) {
+  return <p className="font-Roboto text-mid-green text-xl pl-5">{props.text}</p>;
+}

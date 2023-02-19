@@ -1,16 +1,19 @@
-<<<<<<< Updated upstream
-import Navbar from "./components/Navbar";
-import KFUPMLogo from "./assets/KFUPM_logo.png";
-import TrendingIcon from "./assets/trending-up-outline.svg";
-import EvaluationIcon from "./assets/chatbox-outline.svg";
-import UpVoteIcon from "./assets/arrow-up-outline.svg";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import KFUPMLogo from "../assets/KFUPM_logo.png";
+import TrendingIcon from "../assets/trending-up-outline.svg";
+import EvaluationIcon from "../assets/chatbox-outline.svg";
+import UpVoteIcon from "../assets/arrow-up-outline.svg";
 
-export default function App() {
+export default function HomeLayout() {
   return (
-    <div class="bg-jetBlack h-screen">
-      <Navbar />
-      <Header />
-      <Trending />
+    <div className="bg-background">
+      <Navbar name="Home" />
+      <div className="z-1">
+        <Header />
+        <Trending />
+      </div>
+      <Footer />
     </div>
   );
 }
@@ -44,8 +47,8 @@ function Header() {
 
 function Trending() {
   return (
-    <div className="m-0 px-2 sm:px-6 py-10 bg-jetBlack border-t-2 border-dark-green h-">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 py-6">
+    <div className="m-0 px-2 sm:px-6 py-10 bg-jetBlack border-t-2 border-dark-green">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 py-7">
         <div className="flex flex-row justify-center pb-10">
           <img src={TrendingIcon} alt="Trending Icon" width="30px" />
           <h1 className="text-white font-Montserrat text-2xl px-2 capitalize">Trending on BetterKFUPM</h1>
@@ -81,25 +84,5 @@ function TrendingComponent(props) {
         </p>
       </div>
     </div>
-=======
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomeLayout from "./pages/HomeLayout";
-import AboutLayout from "./pages/AboutLayout";
-import ContactUsLayout from "./pages/ContactUsLayout";
-import FAQLayout from "./pages/FAQLayout";
-
-export default function App() {
-  return (
-    <Router>
-      <div class="bg-background">
-        <Routes>
-          <Route path="/" element={<HomeLayout />}></Route>
-          <Route path="/about" element={<AboutLayout />}></Route>
-          <Route path="/contact-us" element={<ContactUsLayout />}></Route>
-          <Route path="/faq" element={<FAQLayout />}></Route>
-        </Routes>
-      </div>
-    </Router>
->>>>>>> Stashed changes
   );
 }
