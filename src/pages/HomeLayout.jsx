@@ -9,6 +9,7 @@ export default function HomeLayout() {
   return (
     <div className="bg-background">
       <Navbar name="Home" />
+
       <div className="z-1">
         <Header />
         <Trending />
@@ -49,6 +50,7 @@ function Trending() {
   return (
     <div className="m-0 px-2 sm:px-6 py-10 bg-jetBlack border-t-2 border-dark-green">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 py-7">
+
         <div className="flex flex-row justify-center pb-10">
           <img src={TrendingIcon} alt="Trending Icon" width="30px" />
           <h1 className="text-white font-Montserrat text-2xl px-2 capitalize">Trending on BetterKFUPM</h1>

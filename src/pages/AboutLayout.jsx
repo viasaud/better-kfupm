@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const AboutLayout = () => {
+export default function AboutLayout() {
   return (
     <div className="bg-background ">
       <Navbar name="About" />
@@ -19,6 +19,4 @@ const AboutLayout = () => {
       <Footer />
     </div>
   );
-};
-
-export default AboutLayout;
+}

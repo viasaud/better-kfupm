@@ -2,17 +2,10 @@ import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-<<<<<<< Updated upstream
-  { name: "Home", href: "#", current: true },
-  { name: "About", href: "#", current: false },
-  { name: "FAQ", href: "#", current: false },
-  { name: "Contact Us", href: "#", current: false },
-=======
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "FAQ", href: "/faq" },
   { name: "Contact Us", href: "/contact-us" },
->>>>>>> Stashed changes
 ];
 
 function classNames(...classes) {

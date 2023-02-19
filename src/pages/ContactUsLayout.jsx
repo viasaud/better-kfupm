@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ContactUs from "../components/ContactUs";
 
-const ContactUsLayout = () => {
+export default function ContactUsLayout() {
   return (
     <>
       <Navbar name="Contact Us" />
@@ -10,6 +10,4 @@ const ContactUsLayout = () => {
       <Footer />
     </>
   );
-};
-
-export default ContactUsLayout;
+}
