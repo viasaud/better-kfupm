@@ -15,6 +15,5 @@ export default function App() {
           <Route path="/faq" element={<FAQLayout />}></Route>
         </Routes>
       </div>
-    </Router>
   );
 }

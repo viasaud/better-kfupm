@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+
 export default function Footer() {
   return (
     <footer className=" border-t-2 border-dark-green font-Roboto relative bottom-0">
@@ -15,3 +16,4 @@ export default function Footer() {
     </footer>
   );
 }
+
