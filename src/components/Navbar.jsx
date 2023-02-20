@@ -52,7 +52,7 @@ export default function Navbar(props) {
                   </div>
                 </div>
               </div>
-              <div className="hidden md:block absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="hidden absolute inset-y-0 right-0 md:flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button className=" rounded-lg bg-mid-green py-2 px-5 text-white font-Montserrat hover:bg-dark-green active:translate-y-1">
                   Get Started
                 </button>
