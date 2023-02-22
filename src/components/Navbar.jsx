@@ -68,8 +68,8 @@ export default function Navbar(props) {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.name == props.name ? "text-mid-green" : "text-jetBlack hover:text-mid-green",
-                    "block px-3 py-2"
+                    item.name == props.name ? " text-mid-green" : "text-jetBlack hover:text-mid-green",
+                    "px-3 py-2 text-md "
                   )}
                   aria-current={item.name == props.name ? "page" : undefined}
                 >
