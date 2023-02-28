@@ -3,6 +3,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import ProfileIcon from "../assets/person-circle-outline.svg";
 
+/* For routing: Just change the href below */
 const navigation = [
   { name: "Service Centers", href: "#" },
   { name: "ePlatforms", href: "/eplatforms" },
@@ -74,6 +75,7 @@ export default function SignedNavbar(props) {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-jetBlack py-1 shadow-lg ring-1 ring-background ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
+                          /* Change this href for routing purposes */
                           <a href="#" className={classNames(active ? "text-light-green" : "text-background", "block px-4 py-2 text-sm ")}>
                             Your Profile
                           </a>
@@ -81,19 +83,7 @@ export default function SignedNavbar(props) {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? "text-light-green" : "text-background",
-                              "block px-4 py-2 text-sm text-background"
-                            )}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
+                          /* Change this href for routing purposes */
                           <a
                             href="#"
                             className={classNames(

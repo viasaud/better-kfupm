@@ -1,6 +1,7 @@
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
+/* For routing: Just change the href below */
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
@@ -53,6 +54,7 @@ export default function Navbar(props) {
                 </div>
               </div>
               <div className="hidden absolute inset-y-0 right-0 md:flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                /* Add onclick handler for routing purposes */
                 <button className=" rounded-lg bg-mid-green py-2 px-5 text-white font-Montserrat hover:bg-dark-green active:translate-y-1">
                   Get Started
                 </button>

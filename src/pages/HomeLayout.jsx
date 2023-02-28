@@ -8,8 +8,8 @@ import UpVoteIcon from "../assets/arrow-up-outline.svg";
 export default function HomeLayout() {
   return (
     <div className="bg-background">
+      /* INPUT: name = MUST be equal to the names on navigation constant found on the Navbar component */
       <Navbar name="Service Centers" />
-
       <div className="z-1">
         <Header />
         <Trending />
@@ -36,6 +36,7 @@ function Header() {
             BetterKFUPM Platform enables KFUPM community, and the visitor, to evaluate the service centers and E-Platforms of KFUPM
             facilites and share opinions to improve and develop them.
           </p>
+          /* Add onclick handler for routing purposes */
           <button className="text-lg md:text-xl rounded-lg bg-mid-green mt-4 xl:mt-8 py-2 px-5 text-white font-Montserrat hover:bg-dark-green active:translate-y-1">
             Register Now
           </button>
