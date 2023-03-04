@@ -3,7 +3,9 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import ProfileIcon from "../assets/person-circle-outline.svg";
 
-/* For routing: Just change the href below */
+{
+  /* For routing: Just change the href below */
+}
 const navigation = [
   { name: "Service Centers", href: "#" },
   { name: "ePlatforms", href: "/eplatforms" },
@@ -34,7 +36,9 @@ export default function SignedNavbar(props) {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex items-center md:mr-auto">
-                  <p className="font-NotoSerif text-2xl">BetterKFUPM</p>
+                  <a href="/" className="font-NotoSerif text-2xl">
+                    BetterKFUPM
+                  </a>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4 ">
@@ -74,23 +78,20 @@ export default function SignedNavbar(props) {
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-jetBlack py-1 shadow-lg ring-1 ring-background ring-opacity-5 focus:outline-none">
                       <Menu.Item>
+                        {/* Change this href for routing purposes */}
                         {({ active }) => (
-                          /* Change this href for routing purposes */
-                          <a href="#" className={classNames(active ? "text-light-green" : "text-background", "block px-4 py-2 text-sm ")}>
-                            Your Profile
+                          <a
+                            href="/settings"
+                            className={classNames(active ? "text-light-green" : "text-background", "block px-4 py-2 text-sm ")}
+                          >
+                            Account
                           </a>
                         )}
                       </Menu.Item>
                       <Menu.Item>
+                        {/* Change this href for routing purposes */}
                         {({ active }) => (
-                          /* Change this href for routing purposes */
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? "text-light-green" : "text-background",
-                              "block px-4 py-2 text-sm text-background"
-                            )}
-                          >
+                          <a href="#" className={classNames(active ? "text-light-green" : "text-background", "block px-4 py-2 text-sm ")}>
                             Sign out
                           </a>
                         )}

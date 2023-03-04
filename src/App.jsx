@@ -3,6 +3,7 @@ import HomeLayout from "./pages/HomeLayout";
 import AboutLayout from "./pages/AboutLayout";
 import ContactUsLayout from "./pages/ContactUsLayout";
 import FAQLayout from "./pages/FAQLayout";
+import Account from "./pages/Account";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
           <Route path="/about" element={<AboutLayout />}></Route>
           <Route path="/contact-us" element={<ContactUsLayout />}></Route>
           <Route path="/faq" element={<FAQLayout />}></Route>
+          <Route path="/account" element={<Account />}></Route>
         </Routes>
       </div>
     </Router>
