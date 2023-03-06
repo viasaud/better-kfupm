@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Navbar from '../components/Navbar'
+import SignedNavbar from '../components/SignedNavbar'
 import ReviewCard from '../components/ReviewCard'
 import Footer from '../components/Footer'
 
@@ -8,7 +8,7 @@ const UserMainLayout = () => {
     return (
         <>
             <div className=" h-screen">
-                <Navbar name="User Home" />
+                <SignedNavbar name="User Home" />
 
 
                 <div className="bg-background flex flex-col justify-center overflow-auto mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-10">
