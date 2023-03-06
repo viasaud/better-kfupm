@@ -4,6 +4,7 @@ import AboutLayout from "./pages/AboutLayout";
 import ContactUsLayout from "./pages/ContactUsLayout";
 import FAQLayout from "./pages/FAQLayout";
 import UserMainLayout from "./pages/UserMainLayout";
+import Account from "./pages/Account";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/contact-us" element={<ContactUsLayout />}></Route>
           <Route path="/faq" element={<FAQLayout />}></Route>
           <Route path="/user-main" element={<UserMainLayout />}></Route>
+          <Route path="/account" element={<Account />}></Route>
         </Routes>
       </div>
     </Router>

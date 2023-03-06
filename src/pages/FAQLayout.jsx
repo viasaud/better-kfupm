@@ -24,11 +24,11 @@ export default function FAQLayout() {
     </div>
   );
 }
-
+/* INPUT: text = text of the question */
 function Question(props) {
   return <p className="font-Roboto text-jetBlack text-xl pt-10 pb-3 font-semibold">{props.text}</p>;
 }
-
+/* INPUT: text = text of the answer*/
 function Answer(props) {
   return <p className="font-Roboto text-mid-green text-xl pl-5">{props.text}</p>;
 }

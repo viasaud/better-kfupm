@@ -1,34 +1,22 @@
-import React, { useState } from "react";
-import { Disclosure } from "@headlessui/react";
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import SignInForm from "./SignInForm";
+import ProfileIcon from "../assets/person-circle-outline.svg";
 
 {
   /* For routing: Just change the href below */
 }
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "FAQ", href: "/faq" },
-  { name: "Contact Us", href: "/contact-us" },
+  { name: "Service Centers", href: "#" },
+  { name: "ePlatforms", href: "/eplatforms" },
+  { name: "External Platforms", href: "/external-platforms" },
 ];
-
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-
-export default function Navbar(props) {
-
-  // const to set the state of the review form
-  const [showSignInForm, setshowSignInForm] = React.useState(false)
-
-  // function to display the review form
-  function displaySignInForm() {
-    setshowSignInForm(!showSignInForm)
-  }
-
+export default function SignedNavbar(props) {
   return (
     <Disclosure as="nav" className="bg-background border-b-2 border-dark-green font-Roboto">
       {({ open }) => (
@@ -48,7 +36,9 @@ export default function Navbar(props) {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex items-center md:mr-auto">
-                  <p className="font-NotoSerif text-2xl">BetterKFUPM</p>
+                  <a href="/" className="font-NotoSerif text-2xl">
+                    BetterKFUPM
+                  </a>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4 ">
@@ -68,17 +58,50 @@ export default function Navbar(props) {
                   </div>
                 </div>
               </div>
-              <div className="hidden absolute inset-y-0 right-0 mdflex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {/* Add onclick handler for routing purposes */}
-                <button onClick={displaySignInForm} className=" rounded-lg bg-mid-green py-2 px-5 text-white font-Montserrat hover:bg-dark-green active:translate-y-1">
-                  Get Started
-                </button>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                {/* Profile dropdown */}
+                <Menu as="div" className="relative ml-3">
+                  <div>
+                    <Menu.Button className="flex text-sm active:outline-none active:ring-1 active:ring-jetBlack active:ring-offset-1 active:ring-offset-jetBlack">
+                      <span className="sr-only">Open user menu</span>
+                      <img className="bg-background w-8" src={ProfileIcon} alt="Profile Icon" />
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-jetBlack py-1 shadow-lg ring-1 ring-background ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {/* Change this href for routing purposes */}
+                        {({ active }) => (
+                          <a
+                            href="/settings"
+                            className={classNames(active ? "text-light-green" : "text-background", "block px-4 py-2 text-sm ")}
+                          >
+                            Account
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {/* Change this href for routing purposes */}
+                        {({ active }) => (
+                          <a href="#" className={classNames(active ? "text-light-green" : "text-background", "block px-4 py-2 text-sm ")}>
+                            Sign out
+                          </a>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
               </div>
             </div>
           </div>
-
-          {/* if showReviewForm is true, then show the ReviewForm component */}
-          {showSignInForm ? <SignInForm /> : null}
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
@@ -103,4 +126,3 @@ export default function Navbar(props) {
     </Disclosure>
   );
 }
-

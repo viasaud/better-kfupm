@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 
-
 export default function Footer() {
   return (
     <footer className="w-full sticky top-[100vh] bottom-0 border-t-2 border-dark-green font-Roboto">
@@ -16,4 +15,3 @@ export default function Footer() {
     </footer>
   );
 }
-
