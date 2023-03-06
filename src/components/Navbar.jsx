@@ -68,7 +68,7 @@ export default function Navbar(props) {
                   </div>
                 </div>
               </div>
-              <div className="hidden absolute inset-y-0 right-0 mdflex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="absolute inset-y-0 right-0 mdflex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Add onclick handler for routing purposes */}
                 <button onClick={displaySignInForm} className=" rounded-lg bg-mid-green py-2 px-5 text-white font-Montserrat hover:bg-dark-green active:translate-y-1">
                   Get Started
