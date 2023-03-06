@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 
 export default function FAQLayout() {
   return (
-    <div class="bg-background">
+    <div className="bg-background h-screen">
       <Navbar name="FAQ" />
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-10">
         <h1 className="font-Montserrat text-jetBlack font-semibold text-4xl">FAQ</h1>

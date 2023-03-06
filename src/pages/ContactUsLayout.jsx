@@ -5,9 +5,11 @@ import ContactUs from "../components/ContactUs";
 export default function ContactUsLayout() {
   return (
     <>
-      <Navbar name="Contact Us" />
-      <ContactUs />
-      <Footer />
+      <div className="h-screen">
+        <Navbar name="Contact Us" />
+        <ContactUs />
+        <Footer />
+      </div>
     </>
   );
 }

@@ -2,12 +2,12 @@
 
 const ContactUs = () => {
   return (
-    <div className="bg-background h-screen">
+    <div className="bg-background">
       <div className="bg-background mx-auto py-10 px-2 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl">
           <h1 className="font-Montserrat text-jetBlack font-semibold text-4xl py-5">Contact Us</h1>
 
-          <div class="flex flex-col bg-jetBlack text-white rounded-lg items-center justify-center mx-auto max-w-2xl pt-12 pb-4 px-6 md:px-8">
+          <div className="flex flex-col bg-jetBlack text-white rounded-lg items-center justify-center mx-auto max-w-2xl pt-12 pb-4 px-6 md:px-8">
             <h1 className="mb-12 text-2xl md:text-4xl font-Montserrat">Leave us a message</h1>
 
             <form className="text-white w-full">

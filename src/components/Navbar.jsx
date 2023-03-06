@@ -1,5 +1,7 @@
+import React, { useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import SignInForm from "./SignInForm";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -8,11 +10,22 @@ const navigation = [
   { name: "Contact Us", href: "/contact-us" },
 ];
 
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+
 export default function Navbar(props) {
+
+  // const to set the state of the review form
+  const [showSignInForm, setshowSignInForm] = React.useState(false)
+
+  // function to display the review form
+  function displaySignInForm() {
+    setshowSignInForm(!showSignInForm)
+  }
+
   return (
     <Disclosure as="nav" className="bg-background border-b-2 border-dark-green font-Roboto">
       {({ open }) => (
@@ -53,12 +66,15 @@ export default function Navbar(props) {
                 </div>
               </div>
               <div className="hidden absolute inset-y-0 right-0 md:flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button className=" rounded-lg bg-mid-green py-2 px-5 text-white font-Montserrat hover:bg-dark-green active:translate-y-1">
+                <button onClick={displaySignInForm} className="rounded-lg bg-mid-green py-2 px-5 text-white font-Montserrat hover:bg-dark-green active:translate-y-1">
                   Get Started
                 </button>
               </div>
             </div>
           </div>
+
+          {/* if showReviewForm is true, then show the ReviewForm component */}
+          {showSignInForm ? <SignInForm /> : null}
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
@@ -83,3 +99,4 @@ export default function Navbar(props) {
     </Disclosure>
   );
 }
+
