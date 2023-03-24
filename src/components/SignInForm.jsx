@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from "react-router-dom"
 
 const SignInForm = () => {
+
+    // naviget to the user main page
+    const navigate = useNavigate()
 
     // state variables to store the first & last name, email and password
     const [firstName, setfirstName] = useState('');
@@ -34,6 +38,9 @@ const SignInForm = () => {
             setlastName(values.lastName);
             setEmail(values.email);
             setPassword(values.password);
+
+            // to do: send the data to the backend and check the authorisation
+            navigate("/user-main")
         }
     }
 
@@ -146,7 +153,6 @@ const SignInForm = () => {
                     <button
                         type="submit"
                         className=" text-white bg-mid-green hover:bg-dark-green focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-lg sm:w-auto px-5 py-2.5 text-center font-Montserrat capitalize"
-                        onClick={handleButtonClick}
                     >
                         Sign In
                     </button>
