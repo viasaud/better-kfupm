@@ -14,7 +14,9 @@ const port = 4000
 app.listen(port, () => console.log(`listening on port ${port}....`));
 
 //import routers
+import adminRoute from './routes/adminRouter.js'
 import authRoute from './routes/authRouter.js'
 import serviceRoute from './routes/serviceRouter.js'
+app.use("/api",adminRoute);
 app.use("/api",authRoute);
 app.use("/api",serviceRoute);
