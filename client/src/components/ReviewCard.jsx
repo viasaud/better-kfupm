@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 // props contains the card elements [name, rating, evaluators, comments] 
-const ReviewCard = (props, { displayReviewForm }) => {
+const ReviewCard = (props) => {
 
     //-------------------- Functions for the Card Body --------------------//
 
