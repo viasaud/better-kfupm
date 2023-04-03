@@ -30,12 +30,12 @@ export const getEvaluations = async (req, res) => {
 }
 
 export const addEvaluation = async (req, res) => {
-    const {service_id, review, rating, access_token} = req.body;
+    const { service_id, review, rating, access_token } = req.body;
     const { data: { user } } = await supabase.auth.getUser(access_token);
     const { error } = await supabase
         .from('evaluations')
-        .insert({ user_id: user.id, service_id,review,rating })
-    if(error) return res.json(error.message);
+        .insert({ user_id: user.id, service_id, review, rating })
+    if (error) return res.json(error.message);
 
     res.send('evaluation created succesfully')
 
