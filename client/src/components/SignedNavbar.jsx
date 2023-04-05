@@ -81,7 +81,7 @@ export default function SignedNavbar(props) {
                         {/* Change this href for routing purposes */}
                         {({ active }) => (
                           <a
-                            href="/settings"
+                            href="/account"
                             className={classNames(active ? "text-light-green" : "text-background", "block px-4 py-2 text-sm ")}
                           >
                             Account
