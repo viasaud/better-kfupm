@@ -3,7 +3,7 @@ import HomeLayout from "./pages/HomeLayout";
 import AboutLayout from "./pages/AboutLayout";
 import ContactUsLayout from "./pages/ContactUsLayout";
 import FAQLayout from "./pages/FAQLayout";
-import UserMainLayout from "./pages/userMainLayout";
+import UserMainLayout from "./pages/UserMainLayout";
 import Account from "./pages/Account";
 
 export default function App() {
@@ -23,4 +23,4 @@ export default function App() {
   );
 }
 
-// axios 
+// axios

@@ -112,7 +112,10 @@ export default function Account() {
           <p className="text-jetBlack font-Montserrat text-2xl font-semibold">Previous Evaluations</p>
         </div>
         <div className="md:col-span-2">
-          <div className="bg-jetBlack bg-opacity-10 rounded p-4">{/* Previous Evaluations should be implemented here */}</div>
+          <div className="bg-jetBlack bg-opacity-10 rounded p-4">
+            {/* Previous Evaluations should be implemented here */}
+            <p className="text-xl font-Montserrat text-center">You have not evaluated any service yet!</p>
+          </div>
         </div>
       </div>
     </div>
