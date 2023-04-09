@@ -36,7 +36,7 @@ const UserMainLayout = () => {
 
           {/* Rating cards*/}
           <div className="flex flex-row flex-wrap justify-center	md:justify-between">
-            <ReviewCard name="KFUPM mall" rating="1.0" evaluators="39" comments="20" />
+            <ReviewCard name="BUILDING 54" rating="1.0" evaluators="39" comments="20" />
           </div>
         </div>
 
