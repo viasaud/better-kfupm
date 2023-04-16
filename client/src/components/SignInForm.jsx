@@ -77,8 +77,27 @@ const SignInForm = () => {
             <h1 className="mb-8 text-sm text-center md:text-4xl font-Montserrat">Sign In to your account</h1>
             <form className="text-white w-full" onSubmit={handleSubmit(onSubmit)}>
 
-                <div className="md:flex justify-between ">
 
+                <div className="mb-6">
+                    <label for="email" className="block mb-2 text-sm font-Montserrat">
+                        Email
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5 font-Roboto"
+                        placeholder="s201811111@kfupm.edu.sa"
+                        required
+                        {...register("email", {
+                            required: true, pattern: /^[a-zA-Z0-9._-]+@kfupm.edu.sa/
+                        })}
+                    />
+                    {errors.email && <div><span className="text-sm  text-red-500" >Invalid email</span></div>}
+                </div>
+
+
+
+                <div className="md:flex justify-between ">
                     <div className="mb-6">
                         <label for="firstName" className="block mb-2 text-sm font-Montserrat">
                             First Name
@@ -112,24 +131,6 @@ const SignInForm = () => {
                         />
                         {errors.lastName && <div><span className="text-sm  text-red-500" >Invalid last name</span></div>}
                     </div>
-
-                </div>
-
-                <div className="mb-6">
-                    <label for="email" className="block mb-2 text-sm font-Montserrat">
-                        Email
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5 font-Roboto"
-                        placeholder="s201811111@kfupm.edu.sa"
-                        required
-                        {...register("email", {
-                            required: true, pattern: /^[a-zA-Z0-9._-]+@kfupm.edu.sa/
-                        })}
-                    />
-                    {errors.email && <div><span className="text-sm  text-red-500" >Invalid email</span></div>}
                 </div>
 
 

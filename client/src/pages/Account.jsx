@@ -1,4 +1,5 @@
 import SignedNavbar from "../components/SignedNavbar";
+import PreviousEvaluations from "../components/PreviousEvaluations";
 
 export default function Account() {
   return (
@@ -114,6 +115,7 @@ export default function Account() {
         <div className="md:col-span-2">
           <div className="bg-jetBlack bg-opacity-10 rounded p-4">
             {/* Previous Evaluations should be implemented here */}
+            <PreviousEvaluations />
             <p className="text-xl font-Montserrat text-center">You have not evaluated any service yet!</p>
           </div>
         </div>
