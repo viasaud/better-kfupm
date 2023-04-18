@@ -7,8 +7,8 @@ import ProfileIcon from "../assets/person-circle-outline.svg";
   /* For routing: Just change the href below */
 }
 const navigation = [
-  { name: "Service Centers", href: "#" },
-  { name: "ePlatforms", href: "/eplatforms" },
+  { name: "Service Centers", href: "/service-centers" },
+  { name: "ePlatforms", href: "/e-platforms" },
   { name: "External Platforms", href: "/external-platforms" },
 ];
 

@@ -3,11 +3,12 @@ import SignedNavbar from "../components/SignedNavbar";
 import ReviewCard from "../components/ReviewCard";
 import Footer from "../components/Footer";
 
-const UserMainLayout = () => {
+export default function ServiceCentersLayout() {
   return (
     <>
       <div className=" h-screen">
-        <SignedNavbar name="User Home" />
+        {/* in SignedNavbar, pass the name of the page as a prop */}
+        <SignedNavbar name="Service Centers" />
 
         <div className="bg-background flex flex-col justify-center overflow-auto mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-10">
           {/* Search area */}
@@ -36,7 +37,7 @@ const UserMainLayout = () => {
 
           {/* Rating cards*/}
           <div className="flex flex-row flex-wrap justify-center	md:justify-between">
-            <ReviewCard name="BUILDING 54" rating="1.0" evaluators="39" comments="20" />
+            <ReviewCard name="BUILDING 54" rating="1.9" evaluators="39" comments="20" />
           </div>
         </div>
 
@@ -44,6 +45,4 @@ const UserMainLayout = () => {
       </div>
     </>
   );
-};
-
-export default UserMainLayout;
+}

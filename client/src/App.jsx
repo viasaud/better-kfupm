@@ -3,7 +3,9 @@ import HomeLayout from "./pages/HomeLayout";
 import AboutLayout from "./pages/AboutLayout";
 import ContactUsLayout from "./pages/ContactUsLayout";
 import FAQLayout from "./pages/FAQLayout";
-import UserMainLayout from "./pages/UserMainLayout";
+import EPlatformsLayout from "./pages/EPlatformsLayout";
+import ServiceCentersLayout from "./pages/ServiceCentersLayout";
+import ExternalPlatformsLayout from "./pages/ExternalPlatformsLayout";
 import Account from "./pages/Account";
 
 export default function App() {
@@ -15,7 +17,9 @@ export default function App() {
           <Route path="/about" element={<AboutLayout />}></Route>
           <Route path="/contact-us" element={<ContactUsLayout />}></Route>
           <Route path="/faq" element={<FAQLayout />}></Route>
-          <Route path="/user-main" element={<UserMainLayout />}></Route>
+          <Route path="/service-centers" element={<ServiceCentersLayout />}></Route>
+          <Route path="/external-platforms" element={<ExternalPlatformsLayout />}></Route>
+          <Route path="/e-platforms" element={<EPlatformsLayout />}></Route>
           <Route path="/account" element={<Account />}></Route>
         </Routes>
       </div>
