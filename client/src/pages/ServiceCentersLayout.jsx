@@ -18,16 +18,13 @@ export default function ServiceCentersLayout() {
       try {
         const response = await api.get("service/bld");
         setData(response.data);
-      }
-      catch (error) {
+      } catch (error) {
         console.log(error);
       }
     };
 
     fetchData();
   }, []);
-
-
 
   return (
     <>
@@ -63,13 +60,13 @@ export default function ServiceCentersLayout() {
           {/* Rating cards*/}
           <div className="flex flex-row flex-wrap justify-center	md:justify-between">
             {/* fitch the data from fetchData() fuction */}
-            {data.map((value, key) =>
+            {data.map((value, key) => (
               <ReviewCard id={data[key].id} name={data[key].name} />
-            )}
+            ))}
           </div>
         </div>
 
-        
+
 
 
         <Footer />

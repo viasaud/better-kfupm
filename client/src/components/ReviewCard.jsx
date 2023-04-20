@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import api from "../api/posts";
 
-
 // props contains the card elements [name, service id]
 const ReviewCard = (props) => {
-
-
   //\\--------------------- These are the function to GET the data for the Review Card --------------------//\\
 
   // This const data has all the data of the card evaluation
@@ -17,8 +14,7 @@ const ReviewCard = (props) => {
       try {
         const response = await api.get(`/evaluations/${props.id}`);
         setData(response.data);
-      }
-      catch (error) {
+      } catch (error) {
         console.log(error);
       }
     };
@@ -26,15 +22,13 @@ const ReviewCard = (props) => {
     fetchData();
   }, []);
 
-
   // These are the constatnt for the card evaluation [average rating, number of evaluators, number of comments]
-  const [rating, setRating] = useState('');
-  const [evaluators, setEvaluators] = useState('');
-  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState("");
+  const [evaluators, setEvaluators] = useState("");
+  const [comment, setComment] = useState("");
 
   // This useEffect function to calculate the average rating from data and count the number of evaluators and comments
   useEffect(() => {
-
     // function to calculate the average rating
     const averageRating = () => {
       let sum = 0;
@@ -44,10 +38,9 @@ const ReviewCard = (props) => {
         count++;
       });
       if (count === 0) {
-        setRating('No rating yet');
+        setRating("0.0");
         setEvaluators(0);
-      }
-      else {
+      } else {
         setRating(sum / count);
         setEvaluators(count);
       }
@@ -68,36 +61,40 @@ const ReviewCard = (props) => {
   }, [data]);
 
   // function to change the color of the rating box
-  function ratingBoxColor() {
-    if (rating >= 4) {
+  function ratingBoxColor(rating) {
+    if (rating > 4) {
+      return "border-purple-800 bg-purple-200";
+    } else if (rating > 3) {
       return "border-green-800 bg-green-200";
-    } else if (rating >= 3) {
+    } else if (rating > 2) {
       return "border-yellow-400 bg-yellow-200";
-    } else if (rating >= 2) {
+    } else if (rating > 1) {
       return "border-orange-500 bg-orange-200";
-    } else {
+    } else if (rating > 0) {
       return "border-red-800 bg-red-200";
+    } else {
+      return "border-gray-800 bg-gray-200";
     }
   }
 
   // function to change the word of the rating
   function ratingWord() {
-    if (rating >= 4) {
+    if (rating > 4) {
       return "Excellent";
-    } else if (rating >= 3) {
+    } else if (rating > 3) {
+      return "Very Good";
+    } else if (rating > 2) {
       return "Good";
-    } else if (rating >= 2) {
+    } else if (rating > 1) {
       return "Fair";
-    } else if (rating >= 1) {
+    } else if (rating > 0) {
       return "Poor";
     } else {
-      return "No rating yet";
+      return "Not Applicable";
     }
   }
 
   //\\--------------------- End of the function to GET the data for the Review Card --------------------//\\
-
-
 
   //\\--------------------- These are the function to POST the data for the Review FORM --------------------//\\
 
@@ -119,8 +116,6 @@ const ReviewCard = (props) => {
   };
 
   //\\--------------------- End of the function to POST the data for the Review FORM --------------------//\\
-
-
 
   //\\--------------------- These are the functions for the evaluation Review Form to show/disappear --------------------//\\
 
@@ -147,9 +142,6 @@ const ReviewCard = (props) => {
 
   //\\--------------------- End of the functions that handle the evaluation Review Form show/disappear  --------------------//\\
 
-
-
-
   return (
     <>
       {/* start of the card div */}
@@ -161,9 +153,7 @@ const ReviewCard = (props) => {
 
         {/* Rating and rating box percentage */}
         <div className="flex items-center pb-4">
-          <p className={`border-2 rounded-l ${ratingBoxColor()} text-jetBlack text-sm text-center font-semibold p-1.5 w-1/5`}>
-            {rating}
-          </p>
+          <p className={`border-2 rounded-l ${ratingBoxColor()} text-jetBlack text-sm text-center font-semibold p-1.5 w-1/5`}>{rating}</p>
           <p className="px-2 text-md text-center font-semibold">{ratingWord()}</p>
         </div>
 
