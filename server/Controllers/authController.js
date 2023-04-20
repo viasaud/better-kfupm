@@ -1,13 +1,15 @@
 import supabase from '../supabaseClient.js';
 
 export const signupUser = async (req, res) => {
-
+    const { email, password, first_name, last_name, photo } = req.body;
+    if(!(first_name && last_name)){
+        return res.status(400).json("first name and last name must be filled.")
+    }
     //create a user in databse
     var { data, error } = await supabase.auth.signUp(
         {
-            email: req.body.email,
-            password: req.body.password,
-            role: 'evaluator'
+            email,
+            password
         }
     )
 
@@ -21,9 +23,9 @@ export const signupUser = async (req, res) => {
         .from('profiles')
         .insert({
             id: data.user.id,
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            photo: req.body.photo
+            first_name,
+            last_name,
+            photo
         })
 
     //if there is an error return error message
