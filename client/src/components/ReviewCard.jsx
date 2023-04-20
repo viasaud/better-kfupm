@@ -34,6 +34,8 @@ const ReviewCard = (props) => {
 
   // This useEffect function to calculate the average rating from data and count the number of evaluators and comments
   useEffect(() => {
+
+    // function to calculate the average rating
     const averageRating = () => {
       let sum = 0;
       let count = 0;
@@ -41,17 +43,25 @@ const ReviewCard = (props) => {
         sum += value.rating;
         count++;
       });
-      setRating(sum / count);
-      setEvaluators(count);
+      if (count === 0) {
+        setRating('No rating yet');
+        setEvaluators(0);
+      }
+      else {
+        setRating(sum / count);
+        setEvaluators(count);
+      }
     };
+
+    // function to count the number of comments
     const countComment = () => {
       let count = 0;
       data.map((value, key) => {
         if (value.review !== null) {
           count++;
         }
-        setComment(count);
       });
+      setComment(count);
     };
     averageRating();
     countComment();
@@ -78,8 +88,10 @@ const ReviewCard = (props) => {
       return "Good";
     } else if (rating >= 2) {
       return "Fair";
-    } else {
+    } else if (rating >= 1) {
       return "Poor";
+    } else {
+      return "No rating yet";
     }
   }
 

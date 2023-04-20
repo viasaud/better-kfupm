@@ -1,9 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SignedNavbar from "../components/SignedNavbar";
 import ReviewCard from "../components/ReviewCard";
 import Footer from "../components/Footer";
+import api from "../api/posts";
+import { AuthProvider } from "../../context/AuthProvider";
+
 
 export default function ServiceCentersLayout() {
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("service/bld");
+        setData(response.data);
+      }
+      catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+
   return (
     <>
       <div className=" h-screen">
@@ -37,9 +59,13 @@ export default function ServiceCentersLayout() {
 
           {/* Rating cards*/}
           <div className="flex flex-row flex-wrap justify-center	md:justify-between">
-            <ReviewCard name="BUILDING 54" rating="1.9" evaluators="39" comments="20" />
+            {/* fitch the data from fetchData() fuction */}
+            {data.map((value, key) =>
+              <ReviewCard id={data[key].id} name={data[key].name} />
+            )}
           </div>
         </div>
+
 
         <Footer />
       </div>

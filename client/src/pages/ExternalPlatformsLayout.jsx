@@ -58,7 +58,7 @@ export default function ExternalPlatformsLayout() {
           <div className="flex flex-row flex-wrap justify-center	md:justify-between">
             {/* fitch the data from fetchData() fuction */}
             {data.map((value, key) =>
-              <ReviewCard id={data[key].id} name={data[key].name}/>
+              <ReviewCard id={data[key].id} name={data[key].name} />
             )}
           </div>
         </div>
