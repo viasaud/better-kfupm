@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import AuthContext from '../../context/AuthProvider';
+import { useAuth } from '/context/AuthProvider';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import api from "../api/posts";
@@ -10,7 +10,7 @@ const SignInForm = () => {
 
     //\\--------------------- These are the functions to GET/POST the data for SignIn --------------------//\\
 
-    const { auth, setAuth } = useContext(AuthContext);
+    const [token, setToken] = useAuth('');
 
     // state variables to store the first & last name, email and password
     const [email, setEmail] = useState('');
@@ -41,7 +41,7 @@ const SignInForm = () => {
         })
             .then((response) => {
                 const accessToken = response?.data?.accessToken;
-                setAuth({ email, password, accessToken });
+                setToken({ accessToken });
                 navigate("/service-centers")
             })
             .catch((error) => {
@@ -63,7 +63,7 @@ const SignInForm = () => {
         })
             .then((response) => {
                 const accessToken = response?.data?.accessToken;
-                setAuth({ email, password, accessToken });
+                setToken({ accessToken });
                 navigate("/service-centers")
             })
             .catch((error) => {

@@ -3,11 +3,14 @@ import SignedNavbar from "../components/SignedNavbar";
 import ReviewCard from "../components/ReviewCard";
 import Footer from "../components/Footer";
 import api from "../api/posts";
-import { AuthProvider } from "../../context/AuthProvider";
-
+import { useAuth } from "/context/AuthProvider";
 
 export default function ServiceCentersLayout() {
 
+  // token
+  const [token, setToken] = useAuth('');
+
+  // fetch data from the backend
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -65,6 +68,8 @@ export default function ServiceCentersLayout() {
             )}
           </div>
         </div>
+
+        
 
 
         <Footer />
