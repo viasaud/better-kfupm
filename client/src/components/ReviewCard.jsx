@@ -62,15 +62,15 @@ const ReviewCard = (props) => {
 
   // function to change the color of the rating box
   function ratingBoxColor(rating) {
-    if (rating > 5) {
+    if (rating > 4) {
       return "border-purple-800 bg-purple-200";
-    } else if (rating > 4) {
-      return "border-green-800 bg-green-200";
     } else if (rating > 3) {
-      return "border-yellow-400 bg-yellow-200";
+      return "border-green-800 bg-green-200";
     } else if (rating > 2) {
-      return "border-orange-500 bg-orange-200";
+      return "border-yellow-400 bg-yellow-200";
     } else if (rating > 1) {
+      return "border-orange-500 bg-orange-200";
+    } else if (rating > 0) {
       return "border-red-800 bg-red-200";
     } else {
       return "border-gray-800 bg-gray-200";
