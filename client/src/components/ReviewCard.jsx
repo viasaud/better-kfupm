@@ -1,17 +1,69 @@
 import React, { useState, useEffect, useRef } from "react";
+import api from "../api/posts";
 
-// props contains the card elements [name, rating, evaluators, comments]
+
+// props contains the card elements [name, service id]
 const ReviewCard = (props) => {
-  //-------------------- Functions for the Card Body --------------------//
+
+
+  //\\--------------------- These are the function to GET the data for the Review Card --------------------//\\
+
+  // This const data has all the data of the card evaluation
+  const [data, setData] = useState([]);
+
+  // This useEffect fetches the data from the database
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get(`/evaluations/${props.id}`);
+        setData(response.data);
+      }
+      catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+  // These are the constatnt for the card evaluation [average rating, number of evaluators, number of comments]
+  const [rating, setRating] = useState('');
+  const [evaluators, setEvaluators] = useState('');
+  const [comment, setComment] = useState('');
+
+  // This useEffect function to calculate the average rating from data and count the number of evaluators and comments
+  useEffect(() => {
+    const averageRating = () => {
+      let sum = 0;
+      let count = 0;
+      data.map((value, key) => {
+        sum += value.rating;
+        count++;
+      });
+      setRating(sum / count);
+      setEvaluators(count);
+    };
+    const countComment = () => {
+      let count = 0;
+      data.map((value, key) => {
+        if (value.review !== null) {
+          count++;
+        }
+        setComment(count);
+      });
+    };
+    averageRating();
+    countComment();
+  }, [data]);
 
   // function to change the color of the rating box
   function ratingBoxColor() {
-    console.log("ratingBoxColor");
-    if (props.rating >= 4) {
+    if (rating >= 4) {
       return "border-green-800 bg-green-200";
-    } else if (props.rating >= 3) {
+    } else if (rating >= 3) {
       return "border-yellow-400 bg-yellow-200";
-    } else if (props.rating >= 2) {
+    } else if (rating >= 2) {
       return "border-orange-500 bg-orange-200";
     } else {
       return "border-red-800 bg-red-200";
@@ -20,28 +72,22 @@ const ReviewCard = (props) => {
 
   // function to change the word of the rating
   function ratingWord() {
-    if (props.rating >= 4) {
+    if (rating >= 4) {
       return "Excellent";
-    } else if (props.rating >= 3) {
+    } else if (rating >= 3) {
       return "Good";
-    } else if (props.rating >= 2) {
+    } else if (rating >= 2) {
       return "Fair";
     } else {
       return "Poor";
     }
   }
 
-  // const to set the state of the review form
-  const [showReviewForm, setShowReviewForm] = React.useState(false);
+  //\\--------------------- End of the function to GET the data for the Review Card --------------------//\\
 
-  // function to display the review form
-  function displayReviewForm() {
-    setShowReviewForm(!showReviewForm);
-  }
 
-  //-------------------- End of the Functions for the Card Body --------------------//
 
-  //-------------------- Functions for the Card Review Form --------------------//
+  //\\--------------------- These are the function to POST the data for the Review FORM --------------------//\\
 
   const [review, setReview] = useState({
     repositoryName: "",
@@ -60,6 +106,20 @@ const ReviewCard = (props) => {
     console.log(review);
   };
 
+  //\\--------------------- End of the function to POST the data for the Review FORM --------------------//\\
+
+
+
+  //\\--------------------- These are the functions for the evaluation Review Form to show/disappear --------------------//\\
+
+  // const to set the state of the review form
+  const [showReviewForm, setShowReviewForm] = React.useState(false);
+
+  // function to display the review form
+  function displayReviewForm() {
+    setShowReviewForm(!showReviewForm);
+  }
+
   // This function is used to close the review form when the user click outside the form div
   const refClose = useRef(null);
 
@@ -73,7 +133,10 @@ const ReviewCard = (props) => {
     }
   };
 
-  //-------------------- End of the Functions for the Card Review Form --------------------//
+  //\\--------------------- End of the functions that handle the evaluation Review Form show/disappear  --------------------//\\
+
+
+
 
   return (
     <>
@@ -87,7 +150,7 @@ const ReviewCard = (props) => {
         {/* Rating and rating box percentage */}
         <div className="flex items-center pb-4">
           <p className={`border-2 rounded-l ${ratingBoxColor()} text-jetBlack text-sm text-center font-semibold p-1.5 w-1/5`}>
-            {props.rating}
+            {rating}
           </p>
           <p className="px-2 text-md text-center font-semibold">{ratingWord()}</p>
         </div>
@@ -103,7 +166,7 @@ const ReviewCard = (props) => {
               />
               <path d="M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047zM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z" />
             </svg>
-            <p className="text-white px-2">{props.evaluators}</p>
+            <p className="text-white px-2">{evaluators}</p>
           </div>
           <div className="flex flex-row">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-6 h-6">
@@ -113,7 +176,7 @@ const ReviewCard = (props) => {
                 clipRule="evenodd"
               />
             </svg>
-            <p className="text-white px-2">{props.comments}</p>
+            <p className="text-white px-2">{comment}</p>
           </div>
         </div>
 
@@ -137,7 +200,7 @@ const ReviewCard = (props) => {
           id="reviewCardDiv"
           className={`flex-col bg-jetBlack/[.9] border-2 border-[#DAD7CD] text-white rounded-lg items-center justify-center mx-auto max-w-2xl pt-12 pb-4 px-4 md:px-8`}
         >
-          <h1 className="mb-8 text-sm text-center md:text-4xl font-Montserrat">KFUPM mall</h1>
+          <h1 className="mb-8 text-sm text-center md:text-4xl font-Montserrat">{props.name}</h1>
           <form className="text-white w-full" onSubmit={handleSubmit}>
             {/*Start Rating start and text area div*/}
             <div className="mb-6">
