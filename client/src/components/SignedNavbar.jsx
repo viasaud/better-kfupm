@@ -36,7 +36,7 @@ export default function SignedNavbar(props) {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex items-center md:mr-auto">
-                  <a href="/" className="font-NotoSerif text-2xl">
+                  <a href="/" className="font-NotoSerif text-2xl text-jetBlack">
                     BetterKFUPM
                   </a>
                 </div>
