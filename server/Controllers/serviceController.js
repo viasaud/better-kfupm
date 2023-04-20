@@ -15,20 +15,33 @@ export const getServices = async (req, res) => {
 
 export const getEvaluations = async (req, res) => {
     const service_id = req.params.service_id
+    const check_service = await supabase
+        .from('services')
+        .select(`*`)
+        .eq('id', service_id)
 
-    const { data, error } = await supabase
-        .from('evaluations')
-        .select(`* , profiles (first_name, last_name, photo)`)
-        .eq('service_id', service_id)
-    if(data){
-    if (data.length != 0) {
-        return res.status(200).json(data)
+    //check if the service exists, if yes then fetch the evaluations in the entity.
+    //if not return an error message.
+    if (check_service.data.length == 0) {
+        res.status(404).json('entity doees not exist.')
     } else {
-        res.status(404).json('no evaluations in this entity')
+        //returnes the evaluations along ith the evaluator information and the upvotes
+        const { data } = await supabase
+            .from('evaluations')
+            .select(`* , profiles (first_name, last_name, photo), upvotes(count))`)
+            .eq('service_id', service_id)
+
+        if (data) {
+            if (data.length != 0) {
+                return res.status(200).json(data)
+            } else {
+                res.status(404).json('no evaluations in this entity')
+            }
+        } else {
+            res.status(404).json('somthing went wrong, retry.')
+        }
     }
-}else{
-    res.status(404).json('entity doees not exist.')
-}
+
 
 }
 
@@ -37,7 +50,7 @@ export const addEvaluation = async (req, res) => {
     const { data: { user } } = await supabase.auth.getUser(access_token);
     const { error } = await supabase
         .from('evaluations')
-        .insert({ user_id: user.id, service_id, review, rating})
+        .insert({ user_id: user.id, service_id, review, rating })
     if (error) return res.json(error.message);
 
     res.send('evaluation created succesfully')
@@ -45,13 +58,13 @@ export const addEvaluation = async (req, res) => {
 }
 
 export const upvoteEvaluation = async (req, res) => {
-    const { evaluation_id ,access_token } = req.body;
+    const { evaluation_id, access_token } = req.body;
     const { data: { user } } = await supabase.auth.getUser(access_token);
     const { error } = await supabase
-        .from('evaluations')
-        .insert({ user_id: user.id, service_id, review, rating, upvotes: 0 })
+        .from('upvotes')
+        .insert({ upvoter_id: user.id, evlauation_id: evaluation_id })
     if (error) return res.json(error.message);
 
-    res.send('evaluation created succesfully')
+    res.send('evaluation upvoted')
 
 }
