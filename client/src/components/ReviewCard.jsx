@@ -144,7 +144,7 @@ const ReviewCard = (props) => {
       <div className="shadow-lg flex flex-col place-self-center bg-jetBlack text-white h-auto w-72 p-6 md:mb-10 xl:mb-0 rounded-lg my-6">
         {/* Name of the place/E-servecies */}
         <div className="flex pb-4">
-          <h4 className="text-2xl font-mono font-semibold uppercase lg:text-3xl">{props.name}</h4>
+          <h4 className="text-2xl font-mono font-semibold uppercase lg:text-2xl truncate">{props.name}</h4>
         </div>
 
         {/* Rating and rating box percentage */}
