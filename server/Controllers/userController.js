@@ -49,8 +49,9 @@ export const getUserEvaluations = async (req, res) => {
     //get the evaluations then return it
     const { data, error } = await supabase
         .from('evaluations')
-        .select('*')
+        .select('*, services(name)')
         .eq('user_id', user.id)
+
 
     if (data) {
         return res.status(200).json(data)
