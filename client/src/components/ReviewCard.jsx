@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import api from "../api/posts";
 
-
 // props contains the card elements [name, service id]
 const ReviewCard = (props) => {
-
-
   //\\--------------------- These are the function to GET the data for the Review Card --------------------//\\
 
   // This const data has all the data of the card evaluation
@@ -17,8 +14,7 @@ const ReviewCard = (props) => {
       try {
         const response = await api.get(`/evaluations/${props.id}`);
         setData(response.data);
-      }
-      catch (error) {
+      } catch (error) {
         console.log(error);
       }
     };
@@ -26,14 +22,14 @@ const ReviewCard = (props) => {
     fetchData();
   }, []);
 
-
   // These are the constatnt for the card evaluation [average rating, number of evaluators, number of comments]
-  const [rating, setRating] = useState('');
-  const [evaluators, setEvaluators] = useState('');
-  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState("");
+  const [evaluators, setEvaluators] = useState("");
+  const [comment, setComment] = useState("");
 
   // This useEffect function to calculate the average rating from data and count the number of evaluators and comments
   useEffect(() => {
+    // function to calculate the average rating
     const averageRating = () => {
       let sum = 0;
       let count = 0;
@@ -41,17 +37,24 @@ const ReviewCard = (props) => {
         sum += value.rating;
         count++;
       });
-      setRating(sum / count);
-      setEvaluators(count);
+      if (count === 0) {
+        setRating("0.0");
+        setEvaluators(0);
+      } else {
+        setRating(sum / count);
+        setEvaluators(count);
+      }
     };
+
+    // function to count the number of comments
     const countComment = () => {
       let count = 0;
       data.map((value, key) => {
         if (value.review !== null) {
           count++;
         }
-        setComment(count);
       });
+      setComment(count);
     };
     averageRating();
     countComment();
@@ -60,13 +63,15 @@ const ReviewCard = (props) => {
   // function to change the color of the rating box
   function ratingBoxColor() {
     if (rating >= 4) {
-      return "border-green-800 bg-green-200";
+      return "border-indigo-400 bg-indigo-200";
     } else if (rating >= 3) {
-      return "border-yellow-400 bg-yellow-200";
+      return "border-green-400 bg-green-200";
     } else if (rating >= 2) {
-      return "border-orange-500 bg-orange-200";
+      return "border-orange-400 bg-orange-200";
+    } else if (rating >= 1) {
+      return "border-red-400 bg-red-200";
     } else {
-      return "border-red-800 bg-red-200";
+      return "border-gray-400 bg-gray-200";
     }
   }
 
@@ -75,17 +80,17 @@ const ReviewCard = (props) => {
     if (rating >= 4) {
       return "Excellent";
     } else if (rating >= 3) {
-      return "Good";
+      return "Very Good";
     } else if (rating >= 2) {
+      return "Good";
+    } else if (rating >= 1) {
       return "Fair";
     } else {
-      return "Poor";
+      return "Not Rated Yet";
     }
   }
 
   //\\--------------------- End of the function to GET the data for the Review Card --------------------//\\
-
-
 
   //\\--------------------- These are the function to POST the data for the Review FORM --------------------//\\
 
@@ -107,8 +112,6 @@ const ReviewCard = (props) => {
   };
 
   //\\--------------------- End of the function to POST the data for the Review FORM --------------------//\\
-
-
 
   //\\--------------------- These are the functions for the evaluation Review Form to show/disappear --------------------//\\
 
@@ -135,23 +138,18 @@ const ReviewCard = (props) => {
 
   //\\--------------------- End of the functions that handle the evaluation Review Form show/disappear  --------------------//\\
 
-
-
-
   return (
     <>
       {/* start of the card div */}
-      <div className="flex flex-col place-self-center bg-jetBlack text-white h-auto w-72 p-6 md:mb-10 xl:mb-0 rounded-lg my-6">
+      <div className="shadow-lg flex flex-col place-self-center bg-jetBlack text-white h-auto w-72 p-6 md:mb-10 xl:mb-0 rounded-lg my-6">
         {/* Name of the place/E-servecies */}
         <div className="flex pb-4">
-          <h4 className="text-2xl font-mono font-semibold uppercase lg:text-3xl">{props.name}</h4>
+          <h4 className="text-2xl font-mono font-semibold uppercase lg:text-2xl truncate">{props.name}</h4>
         </div>
 
         {/* Rating and rating box percentage */}
         <div className="flex items-center pb-4">
-          <p className={`border-2 rounded-l ${ratingBoxColor()} text-jetBlack text-sm text-center font-semibold p-1.5 w-1/5`}>
-            {rating}
-          </p>
+          <p className={`border-2 rounded-lg ${ratingBoxColor()} text-jetBlack text-sm text-center font-semibold p-1.5 w-1/5`}>{rating}</p>
           <p className="px-2 text-md text-center font-semibold">{ratingWord()}</p>
         </div>
 
@@ -200,82 +198,27 @@ const ReviewCard = (props) => {
           id="reviewCardDiv"
           className={`flex-col bg-jetBlack/[.9] border-2 border-[#DAD7CD] text-white rounded-lg items-center justify-center mx-auto max-w-2xl pt-12 pb-4 px-4 md:px-8`}
         >
-          <h1 className="mb-8 text-sm text-center md:text-4xl font-Montserrat">{props.name}</h1>
+          <h1 className="mb-6 text-sm text-center md:text-4xl font-Montserrat">{props.name}</h1>
           <form className="text-white w-full" onSubmit={handleSubmit}>
             {/*Start Rating start and text area div*/}
             <div className="mb-6">
               {/*Start Rating start div*/}
-              <div className="flex flex-row pb-4">
-                <span>Rate out of 5</span>
-                <span className="flex flex-row-reverse px-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="text-gray-600 cursor-pointer peer peer-hover:text-yellow-400 hover:text-yellow-400 duration-100 w-6 h-6"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="text-gray-600 cursor-pointer peer peer-hover:text-yellow-400 hover:text-yellow-400 duration-100 w-6 h-6"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="text-gray-600 cursor-pointer peer peer-hover:text-yellow-400 hover:text-yellow-400 duration-100 w-6 h-6"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="text-gray-600 cursor-pointer peer peer-hover:text-yellow-400 hover:text-yellow-400 duration-100 w-6 h-6"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="text-gray-600 cursor-pointer peer peer-hover:text-yellow-400 hover:text-yellow-400 duration-100 w-6 h-6"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
+              <div className="text-center mb-4">
+                <div className="rating">
+                  <input type="radio" name="rating" className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
+                  <input type="radio" name="rating" className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
+                  <input type="radio" name="rating" className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
+                  <input type="radio" name="rating" className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
+                  <input type="radio" name="rating" className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
+                </div>
               </div>
+
               {/*End Rating start div*/}
 
               {/*Start evaluation Text area div*/}
               <div className="flex flex-col justify-center items-center">
                 <textarea
-                  className="text-gray-900 w-80 h-40 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
+                  className="text-gray-900 w-80 h-40 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
                   maxlength="500"
                   placeholder="Write your evaluation here"
                   name="text"

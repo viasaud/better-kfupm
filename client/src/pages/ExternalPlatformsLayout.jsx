@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import api from "../api/posts";
 
 export default function ExternalPlatformsLayout() {
-
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -13,15 +12,13 @@ export default function ExternalPlatformsLayout() {
       try {
         const response = await api.get("service/ext");
         setData(response.data);
-      }
-      catch (error) {
+      } catch (error) {
         console.log(error);
       }
     };
 
     fetchData();
   }, []);
-
 
   return (
     <>
@@ -57,9 +54,9 @@ export default function ExternalPlatformsLayout() {
           {/* Rating cards*/}
           <div className="flex flex-row flex-wrap justify-center	md:justify-between">
             {/* fitch the data from fetchData() fuction */}
-            {data.map((value, key) =>
-              <ReviewCard id={data[key].id} name={data[key].name}/>
-            )}
+            {data.map((value, key) => (
+              <ReviewCard id={data[key].id} name={data[key].name} />
+            ))}
           </div>
         </div>
 
