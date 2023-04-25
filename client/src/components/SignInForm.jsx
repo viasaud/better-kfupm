@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import api from "../api/posts";
+import Navbar from './Navbar';
 
 
 
@@ -71,11 +72,6 @@ const SignInForm = () => {
     // const to set the state of the review form
     const [showSignInForm, setShowSignInForm] = React.useState(true)
 
-    // This function is used to close the sign in form when the user click close button
-    const handleCloseBtn = () => {
-        setShowSignInForm(false)
-    }
-
     // This function is used to close the sign in form when the user click outside the form div
     const refClose = useRef(null)
 
@@ -95,6 +91,7 @@ const SignInForm = () => {
 
     return (
         <>
+
             {!nameFeildVisible &&
                 < div ref={refClose} id="signInDiv" className="flex-col bg-jetBlack/[.9] border-2 border-[#DAD7CD] text-white rounded-lg items-center justify-center mx-auto max-w-2xl pt-12 pb-4 px-4 md:px-8">
                     <h1 className="mb-8 text-sm text-center md:text-4xl font-Montserrat">Sign In to your account</h1>
@@ -151,8 +148,7 @@ const SignInForm = () => {
                 </div >
             }
 
-            {
-                !errors.email && !errors.password && nameFeildVisible &&
+            {!errors.email && !errors.password && nameFeildVisible &&
                 <div ref={refClose} id="signInDiv" className="flex-col bg-jetBlack/[.9] border-2 border-[#DAD7CD] text-white rounded-lg items-center justify-center mx-auto max-w-2xl pt-12 pb-4 px-4 md:px-8">
                     <h1 className="mb-8 text-sm text-center md:text-4xl font-Montserrat">Sign In to your account</h1>
 
