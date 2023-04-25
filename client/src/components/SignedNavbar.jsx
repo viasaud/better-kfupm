@@ -1,22 +1,33 @@
 import { Fragment } from "react";
+import { useNavigate } from "react-router-dom"
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import ProfileIcon from "../assets/person-circle-outline.svg";
 
-{
-  /* For routing: Just change the href below */
-}
-const navigation = [
-  { name: "Service Centers", href: "/service-centers" },
-  { name: "ePlatforms", href: "/e-platforms" },
-  { name: "External Platforms", href: "/external-platforms" },
-];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function SignedNavbar(props) {
+
+  {
+    /* For routing: Just change the href below */
+  }
+  const navigation = [
+    { name: "Service Centers", href: "/service-centers" },
+    { name: "ePlatforms", href: "/e-platforms" },
+    { name: "External Platforms", href: "/external-platforms" },
+  ];
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
+
+  function signout() {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("userID");
+    window.location.href = "/";
+
+  }
+
+
   return (
     <Disclosure as="nav" className="bg-background border-b-2 border-dark-green font-Roboto">
       {({ open }) => (
@@ -36,7 +47,7 @@ export default function SignedNavbar(props) {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex items-center md:mr-auto">
-                  <a href="/" className="font-NotoSerif text-2xl text-jetBlack">
+                  <a href="/service-centers" className="font-NotoSerif text-2xl text-jetBlack">
                     BetterKFUPM
                   </a>
                 </div>
@@ -91,7 +102,7 @@ export default function SignedNavbar(props) {
                       <Menu.Item>
                         {/* Change this href for routing purposes */}
                         {({ active }) => (
-                          <a href="#" className={classNames(active ? "text-light-green" : "text-background", "block px-4 py-2 text-sm ")}>
+                          <a href="#" className={classNames(active ? "text-light-green" : "text-background", "block px-4 py-2 text-sm ")} onClick={signout}>
                             Sign out
                           </a>
                         )}
@@ -104,7 +115,7 @@ export default function SignedNavbar(props) {
           </div>
 
           <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pt-2 pb-3">
+            <div className="space-y-1 px-2 pt-2 pb-3 truncate">
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}

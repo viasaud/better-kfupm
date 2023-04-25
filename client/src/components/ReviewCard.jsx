@@ -10,12 +10,13 @@ const ReviewCard = (props) => {
 
   // This useEffect fetches the data from the database
   useEffect(() => {
+
     const fetchData = async () => {
       try {
         const response = await api.get(`/evaluations/${props.id}`);
-        setData(response.data);
+        setData(response.data)
       } catch (error) {
-        console.log(error);
+        setData([]);
       }
     };
 
@@ -41,7 +42,8 @@ const ReviewCard = (props) => {
         setRating("0.0");
         setEvaluators(0);
       } else {
-        setRating(sum / count);
+        // round the average rating to 1 decimal place
+        setRating(Math.round((sum / count) * 10) / 10);
         setEvaluators(count);
       }
     };

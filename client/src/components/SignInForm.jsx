@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import api from "../api/posts";
-import Navbar from './Navbar';
-
 
 
 const SignInForm = () => {
@@ -29,22 +27,25 @@ const SignInForm = () => {
 
 
     // function to handle the submit event of the form for the Login user
-    const handleSignInSubmit = async (e) => {
-        e.preventDefault();
+    const handleSignInSubmit = useCallback(async (e) => {
 
+        e.preventDefault();
+        console.log("email: ", email);
         // post email to the database if it is not already in the database
         api.post('/login', {
             email: email,
             password: password
         })
             .then((response) => {
+                localStorage.setItem('access_token', response.data.access_token);
+                localStorage.setItem('userID', response.data.userID);
                 navigate("/service-centers")
             })
             .catch((error) => {
                 // This function will desplay the first name and last name field for the user because the user does not have an account yest
                 setNameFeildVisible(true);
             })
-    }
+    })
 
     // function to handle the submit event of the form for the Signup user
     const handleSignUpSubmit = async (e) => {
@@ -58,6 +59,8 @@ const SignInForm = () => {
             last_name: lastName
         })
             .then((response) => {
+                localStorage.setItem('access_token', response.data.access_token);
+                localStorage.setItem('userID', response.data.userID);
                 navigate("/service-centers")
             })
             .catch((error) => {

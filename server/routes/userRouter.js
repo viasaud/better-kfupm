@@ -4,7 +4,7 @@ import { getProfile, updateProfile, getUserEvaluations } from '../Controllers/us
 
 const router = express.Router()
 
-router.get('/profile', requireAuth, getProfile);
+router.post('/profile', requireAuth, getProfile);
 router.post('/update-profile', requireAuth, updateProfile);
 
 router.get('/user-evaluations', requireAuth, getUserEvaluations);

@@ -37,13 +37,13 @@ export default function EPlatformsLayout() {
                 <input
                   type="search"
                   id="default-search"
-                  className="inline opacity-80 py-3 w-11/12 rounded-l-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="inline opacity-80 py-3 w-9/12 rounded-l-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm md:w-11/12"
                   placeholder="Building . . ."
                   required
                 ></input>
                 <button
                   type="submit"
-                  className="text-white inline bg-mid-green hover:bg-dark-green focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-r-md text-sm px-4 py-3 w-1/12 font-Montserrat shadow-sm"
+                  className="text-white inline bg-mid-green hover:bg-dark-green focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-r-md text-sm px-4 py-3 w-3/12 font-Montserrat shadow-sm md:w-1/12"
                 >
                   Search
                 </button>
