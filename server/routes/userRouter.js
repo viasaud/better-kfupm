@@ -6,7 +6,6 @@ const router = express.Router()
 
 router.post('/profile', requireAuth, getProfile);
 router.post('/update-profile', requireAuth, updateProfile);
-
-router.get('/user-evaluations', requireAuth, getUserEvaluations);
+router.post('/user-evaluations', requireAuth, getUserEvaluations);
 
 export default router

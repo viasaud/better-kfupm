@@ -30,7 +30,7 @@ const SignInForm = () => {
     const handleSignInSubmit = useCallback(async (e) => {
 
         e.preventDefault();
-        console.log("email: ", email);
+
         // post email to the database if it is not already in the database
         api.post('/login', {
             email: email,
@@ -170,15 +170,14 @@ const SignInForm = () => {
                                 className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5 font-Roboto"
                                 placeholder="s201811111@kfupm.edu.sa"
                                 required
-                            // {...register("email", {
-                            //     required: true, pattern: /^[a-zA-Z0-9._-]+@kfupm.edu.sa/
-                            // })}
+                                {...register("email", {
+                                    required: true, pattern: /^[a-zA-Z0-9._-]+@kfupm.edu.sa/
+                                })}
                             />
                             {errors.email && <div><span className="text-sm  text-red-500" >Invalid email</span></div>}
                         </div>
 
                         {/* This div is for the Password input field */}
-                        {/* {!errors.email && passwordFeildVisible && */}
                         <div className="mb-6">
                             <label for="password" className="block mb-2 text-sm font-Montserrat">
                                 Password

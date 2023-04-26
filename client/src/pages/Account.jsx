@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import SignedNavbar from "../components/SignedNavbar";
-import PreviousEvaluations from "../components/PreviousEvaluations";
 import api from "../api/posts";
 import axios from 'axios';
 
@@ -41,6 +40,7 @@ export default function Account() {
                 .then((response) => {
                     setUserData(response.data);
                     setShowAccountPage(true);
+                    console.log(localStorage.getItem('access_token'));
                 })
                 .catch((error) => {
                     console.log(error);
@@ -79,18 +79,62 @@ export default function Account() {
 
     //\\--------------------- End of the functions that get the user data --------------------//\\
 
+    //\\-------------------- These are the functions to update the user data --------------------//\\
+
+    // This function updates the user's first and last name
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+
+    const handleUpdateName = async (e) => {
+        e.preventDefault();
+
+        let body = {
+            first_name: firstName,
+            last_name: lastName,
+            access_token: localStorage.getItem('access_token')
+        }
+
+        var authOptions = {
+            method: "post",
+            url: `${api.defaults.baseURL}/update-profile`,
+            data: body,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            json: true,
+        };
+
+        axios(authOptions)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    // This function updates the user's password
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmNewPassword, setConfirmNewPassword] = useState("");
+
+    // TODO: Add a function to check if the new password and the confirm new password are the same
+    // const handleUpdatePassword = async (e) => {
+    //     e.preventDefault();
+
+    // };
 
     return (
         <>
             {showAccountPage && previousEvaluations &&
-                <div>
+                <div className=" h-screen">
                     <SignedNavbar />
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                         <p className="text-jetBlack font-Montserrat text-2xl font-semibold py-5 mt-10 w-fit block">Profile</p>
 
                         <div className="md:col-span-2">
                             {/* The form below is for changing the user's first and last name */}
-                            <form action="#" method="POST">
+                            <form action="#" method="POST" onSubmit={handleUpdateName}>
                                 <div className="overflow-hidden shadow">
                                     <div className="bg-jetBlack bg-opacity-10 rounded p-4">
                                         <div className="grid grid-cols-6 gap-6 ">
@@ -104,7 +148,8 @@ export default function Account() {
                                                     name="first-name"
                                                     id="first-name"
                                                     placeholder="given-name"
-                                                    value={userData.first_name}
+                                                    defaultValue={userData.first_name}
+                                                    onChange={(e) => setFirstName(e.target.value)}
                                                     className="opacity-70 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 
                                                 />
@@ -119,7 +164,8 @@ export default function Account() {
                                                     name="last-name"
                                                     id="last-name"
                                                     placeholder="family-name"
-                                                    value={userData.last_name}
+                                                    defaultValue={userData.last_name}
+                                                    onChange={(e) => setLastName(e.target.value)}
                                                     className="opacity-70 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                                 />
                                             </div>
@@ -153,6 +199,7 @@ export default function Account() {
                                                     type="password"
                                                     name="old-Password"
                                                     id="old-Password"
+                                                    onChange={(e) => setOldPassword(e.target.value)}
                                                     className="opacity-70 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                                 />
                                             </div>
@@ -166,6 +213,7 @@ export default function Account() {
                                                     type="password"
                                                     name="new-password"
                                                     id="new-password"
+                                                    onChange={(e) => setNewPassword(e.target.value)}
                                                     className="opacity-70 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                                 />
                                             </div>
@@ -177,6 +225,7 @@ export default function Account() {
                                                     type="password"
                                                     name="confirm-new-password"
                                                     id="confirm-new-password"
+                                                    onChange={(e) => setConfirmNewPassword(e.target.value)}
                                                     className="opacity-70 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                                 />
                                             </div>
@@ -257,11 +306,38 @@ export default function Account() {
 
                         <div className="md:col-span-2">
                             <div className="bg-jetBlack bg-opacity-10 rounded p-4">
-                                {/* Previous Evaluations should be implemented here */}
-                                {previousEvaluations.map((value, key) => (
-                                    <PreviousEvaluations name={previousEvaluations[key].name} created_at={previousEvaluations[key].created_at} condition={previousEvaluations[key].condition} />
-                                ))}
-                                <p className="text-xl font-Montserrat text-center text-jetBlack">You have not evaluated any service yet!</p>
+                                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr className="text-center">
+                                                <th scope="col" className="px-6 py-3">
+                                                    Evaluation
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Date
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Status
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {/* Previous Evaluations Table*/}
+                                            {previousEvaluations.map((value, key) => (
+                                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center">
+                                                    <td className="px-6 py-4">{previousEvaluations[key].services.name}</td>
+                                                    <td className="px-6 py-4">{previousEvaluations[key].created_at.substring(0, 10).split('-').reverse().join('-')}</td>
+                                                    <td className="px-6 py-4">{previousEvaluations[key].condition}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {/* If there is no previous evaluations */}
+                                {previousEvaluations.length === 0 && (
+                                    <p className="text-xl font-Montserrat text-center text-jetBlack">You have not evaluated any service yet!</p>
+                                )
+                                }
                             </div>
                         </div>
                     </div>

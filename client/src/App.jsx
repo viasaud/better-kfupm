@@ -11,7 +11,7 @@ import Account from "./pages/Account";
 export default function App() {
   return (
     <Router>
-      <div class="bg-background">
+      <div class="bg-background h-screen">
         <Routes>
           <Route path="/" element={<HomeLayout />}></Route>
           <Route path="/about" element={<AboutLayout />}></Route>

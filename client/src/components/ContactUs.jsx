@@ -24,12 +24,12 @@ const ContactUs = () => {
                 ></input>
               </div>
               <div className="mb-6">
-                <label for="password" className="block mb-2 text-sm font-Montserrat">
+                <label for="subject" className="block mb-2 text-sm font-Montserrat">
                   Subject
                 </label>
                 <input
-                  type="password"
-                  id="password"
+                  type="text"
+                  id="subject"
                   className="font-Roboto w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 "
                   required
                 ></input>
