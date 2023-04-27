@@ -28,7 +28,7 @@ export const getEvaluations = async (req, res) => {
         //returnes the evaluations along ith the evaluator information and the upvotes
         const { data } = await supabase
             .from('evaluations')
-            .select(`* , profiles (first_name, last_name, photo), upvotes(count))`)
+            .select(`* , profiles (first_name, last_name), upvotes(count))`)
             .eq('service_id', service_id)
 
         if (data) {
@@ -66,5 +66,20 @@ export const upvoteEvaluation = async (req, res) => {
     if (error) return res.json(error.message);
 
     res.send('evaluation upvoted')
+
+}
+
+export const unvoteEvaluation = async (req, res) => {
+    const { evaluation_id, access_token } = req.body;
+    const { data: { user } } = await supabase.auth.getUser(access_token);
+    const {data} = await supabase
+        .from('upvotes')
+        .delete()
+        .match({ evlauation_id: evaluation_id, upvoter_id: user.id }).select()
+
+        //check if there is un evaluation unvoted then return success, else return error.
+    if (data.length === 1) return res.json('evaluation unvoted.');
+    else return res.json('somthing went wrong, retry.')
+
 
 }
