@@ -72,14 +72,12 @@ export const upvoteEvaluation = async (req, res) => {
 export const unvoteEvaluation = async (req, res) => {
     const { evaluation_id, access_token } = req.body;
     const { data: { user } } = await supabase.auth.getUser(access_token);
-    const {data} = await supabase
+    const { data } = await supabase
         .from('upvotes')
         .delete()
         .match({ evlauation_id: evaluation_id, upvoter_id: user.id }).select()
 
-        //check if there is un evaluation unvoted then return success, else return error.
+    //check if there is un evaluation unvoted then return success, else return error.
     if (data.length === 1) return res.json('evaluation unvoted.');
     else return res.json('somthing went wrong, retry.')
-
-
 }
