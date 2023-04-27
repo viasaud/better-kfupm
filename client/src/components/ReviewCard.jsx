@@ -193,12 +193,59 @@ const ReviewCard = (props) => {
 
   // TODO: create a function to get the previous evaluations for the service
   // upvote function for the previous evaluations
-  const upvote = async (id) => {
+  const upvote = async (id, access_token) => {
+
+    let body = {
+      evaluation_id: id,
+      access_token: access_token
+    }
+
+    var authOptions = {
+      method: "post",
+      url: `${api.defaults.baseURL}/upvote`,
+      data: body,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      json: true,
+    };
+
+    axios(authOptions)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
   };
 
   // TODO: create a function to get the previous evaluations for the service
   // downvote function for the previous evaluations
-  const downvote = async (id) => {
+  const downvote = async (id, access_token) => {
+
+    let body = {
+      evaluation_id: id,
+      access_token: access_token
+    }
+
+    var authOptions = {
+      method: "delete",
+      url: `${api.defaults.baseURL}/upvote`,
+      data: body,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      json: true,
+    };
+
+    axios(authOptions)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   //\\--------------------- End of the function to get the Previous Evaluations for the service --------------------//\\
@@ -350,8 +397,8 @@ const ReviewCard = (props) => {
       {/* if showPreviousEvaluations is true, then show the Previous Evaluations component */}
       {showPreviousEvaluations ? (
         <div
-          ref={refClose}
-          id="reviewCardDiv"
+          ref={refPreviousEvaluationsClose}
+          id="previousEvaluationsDiv"
           className={`flex-col bg-jetBlack/[.9] border-2 border-[#DAD7CD] text-white rounded-lg items-center justify-center mx-auto max-w-2xl pt-12 pb-4 px-4 md:px-8`}
         >
           <h1 className="mb-6 text-sm text-center md:text-4xl font-Montserrat">Previous Evaluations</h1>
@@ -377,7 +424,7 @@ const ReviewCard = (props) => {
                 {/* map through the reviews array and display the reviews */}
                 {data.map((value, key) => (
                   <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center">
-                    <td className="px-6 py-4">{props.name}</td>
+                    <td className="px-6 py-4">{data[key].review}</td>
                     <td className="px-6 py-4">{data[key].rating}</td>
                     <td className="px-6 py-4">{data[key].created_at.substring(0, 10).split('-').reverse().join('-')}</td>
                     <td className="px-6 py-4">
@@ -385,9 +432,9 @@ const ReviewCard = (props) => {
                         <button
                           type="button"
                           className="bg-mid-green w-8 h-8 rounded-full"
-                        // onClick={() => {
-                        //   upvoteReview(previosEvaluationsData[key].id);
-                        // }}
+                          onClick={() => {
+                            upvote(data[key].id, localStorage.getItem('access_token'));
+                          }}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -404,13 +451,13 @@ const ReviewCard = (props) => {
                             />
                           </svg>
                         </button>
-                        {/* <p className="mx-2">{previosEvaluationsData[key].evl_upvotes}</p> */}
+
                         <button
                           type="button"
                           className="bg-red-500 w-8 h-8 rounded-full"
-                        // onClick={() => {
-                        //   downvoteReview(previosEvaluationsData[key].id);
-                        // }}
+                          onClick={() => {
+                            downvote(data[key].id, localStorage.getItem('access_token'));
+                          }}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -427,7 +474,11 @@ const ReviewCard = (props) => {
                             />
                           </svg>
                         </button>
-                        {/* <p className="mx-2">{previosEvaluationsData[key].evl_upvotes}</p> */}
+
+                      </div>
+                      <div className="flex justify-center">
+                        <p className="mx-2">{data[key].upvotes[0].count}</p>
+                        <p className="mx-2">{data[key].upvotes[0].count}</p>
                       </div>
                     </td>
                   </tr>
