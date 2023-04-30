@@ -28,7 +28,7 @@ export const getEvaluations = async (req, res) => {
         //returnes the evaluations along ith the evaluator information and the upvotes
         const { data } = await supabase
             .from('evaluations')
-            .select(`* , profiles (first_name, last_name), upvotes(count))`)
+            .select(`* , profiles (first_name, last_name), upvotes(count), downvotes(count) `)
             .eq('service_id', service_id)
 
         if (data) {
@@ -57,6 +57,7 @@ export const addEvaluation = async (req, res) => {
 
 }
 
+//***************************************************upvote********************************** */
 export const upvoteEvaluation = async (req, res) => {
     const { evaluation_id, access_token } = req.body;
     const { data: { user } } = await supabase.auth.getUser(access_token);
@@ -65,7 +66,7 @@ export const upvoteEvaluation = async (req, res) => {
         .insert({ upvoter_id: user.id, evlauation_id: evaluation_id })
     if (error) return res.json(error.message);
 
-    res.send('evaluation upvoted')
+    res.json('evaluation upvoted')
 
 }
 
@@ -74,6 +75,32 @@ export const unvoteEvaluation = async (req, res) => {
     const { data: { user } } = await supabase.auth.getUser(access_token);
     const { data } = await supabase
         .from('upvotes')
+        .delete()
+        .match({ evlauation_id: evaluation_id, upvoter_id: user.id }).select()
+
+    //check if there is un evaluation unvoted then return success, else return error.
+    if (data.length === 1) return res.json('evaluation unvoted.');
+    else return res.json('somthing went wrong, retry.')
+}
+
+//***************************************************down vote********************************** */
+export const downvoteEvaluation = async (req, res) => {
+    const { evaluation_id, access_token } = req.body;
+    const { data: { user } } = await supabase.auth.getUser(access_token);
+    const { error } = await supabase
+        .from('downvotes')
+        .insert({ upvoter_id: user.id, evlauation_id: evaluation_id })
+    if (error) return res.json(error.message);
+
+    res.json('evaluation downvoted')
+
+}
+
+export const unDownvoteEvaluation = async (req, res) => {
+    const { evaluation_id, access_token } = req.body;
+    const { data: { user } } = await supabase.auth.getUser(access_token);
+    const { data } = await supabase
+        .from('downvotes')
         .delete()
         .match({ evlauation_id: evaluation_id, upvoter_id: user.id }).select()
 

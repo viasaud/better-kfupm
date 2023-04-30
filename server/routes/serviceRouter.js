@@ -1,6 +1,6 @@
 import express from 'express';
 import { requireAuth } from '../middleware/authMiddleware.js';
-import {getServices, getEvaluations, addEvaluation, upvoteEvaluation, unvoteEvaluation} from '../Controllers/serviceController.js'
+import {getServices, getEvaluations, addEvaluation, upvoteEvaluation, unvoteEvaluation, downvoteEvaluation, unDownvoteEvaluation} from '../Controllers/serviceController.js'
 
 const router = express.Router()
 
@@ -9,5 +9,7 @@ router.get('/evaluations/:service_id', getEvaluations);
 router.post('/addEvaluation',requireAuth, addEvaluation);
 router.post('/upvote',requireAuth, upvoteEvaluation);
 router.post('/unvote',requireAuth, unvoteEvaluation);
+router.post('/downvote',requireAuth, downvoteEvaluation);
+router.post('/un-downvote',requireAuth, unDownvoteEvaluation);
 
 export default router
