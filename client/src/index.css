@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 #signInDiv,
-#reviewCardDiv {
+#reviewCardDiv, #previousEvaluationsDiv {
   position: fixed;
   left: 50%;
   top: 40%;
