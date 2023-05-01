@@ -4,7 +4,7 @@ import {hide_evaluation} from '../Controllers/providerController.js'
 
 const router = express.Router()
 
-router.post('/hide_evaluation',requireAuth, hide_evaluation );
+router.post('/hide_evaluation', requireProvider, hide_evaluation );
 
 
 export default router
