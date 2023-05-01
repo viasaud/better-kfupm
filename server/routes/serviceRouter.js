@@ -7,7 +7,8 @@ import { getServices,
     unvoteEvaluation, 
     downvoteEvaluation, 
     unDownvoteEvaluation, 
-    requestService } from '../Controllers/serviceController.js'
+    requestService, 
+    addcomments } from '../Controllers/serviceController.js'
 
 const router = express.Router()
 
@@ -19,5 +20,6 @@ router.post('/unvote', requireAuth, unvoteEvaluation);
 router.post('/downvote', requireAuth, downvoteEvaluation);
 router.post('/un-downvote', requireAuth, unDownvoteEvaluation);
 router.post('/request-service', requestService);
+router.post('/addcomments', requireAuth, addcomments);
 
 export default router
