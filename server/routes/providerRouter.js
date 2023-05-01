@@ -1,5 +1,5 @@
 import express from 'express';
-import { requireAuth } from '../middleware/authMiddleware.js';
+import { requireProvider } from '../middleware/authMiddleware.js';
 import {hide_evaluation} from '../Controllers/providerController.js'
 
 const router = express.Router()
