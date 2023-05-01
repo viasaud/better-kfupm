@@ -1,13 +1,13 @@
 import express from 'express';
 import cors from 'cors'
-
+import {corsOptions} from './middleware/corsOptions.js';
 
 const app = express();
 
 
 //middlewares   
 app.use(express.json());
-app.use(cors());
+app.use(cors()); //app.use(cors(corsOptions));
 
 //start the server
 const port = 4000
