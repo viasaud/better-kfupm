@@ -126,3 +126,15 @@ export const requestService = async (req, res) => {
     
     res.json('request sent.')
 }
+
+export const addcomments = async (req, res) => {
+    const { evaluation_id, access_token, comment} = req.body;
+    const { data: { user } } = await supabase.auth.getUser(access_token);
+    const { error } = await supabase
+        .from('comments')
+        .insert({ commenter_id: user.id, evlauation_id: evaluation_id , comment:comment})
+    if (error) return res.json(error.message);
+
+    res.send('comment created')
+
+}
