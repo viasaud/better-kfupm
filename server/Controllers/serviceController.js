@@ -58,6 +58,13 @@ export const addEvaluation = async (req, res) => {
 }
 
 //***************************************************upvote********************************** */
+
+// export const voteEvaluation = async (req, res) => {
+//     const vote = req.params.vote
+//     if(vote === "up") res.json('evaluation upvoted')
+//     if(vote === "down")res.json('evaluation down')
+// }
+
 export const upvoteEvaluation = async (req, res) => {
     const { evaluation_id, access_token } = req.body;
     const { data: { user } } = await supabase.auth.getUser(access_token);
@@ -107,4 +114,15 @@ export const unDownvoteEvaluation = async (req, res) => {
     //check if there is un evaluation unvoted then return success, else return error.
     if (data.length === 1) return res.json('evaluation unvoted.');
     else return res.json('somthing went wrong, retry.')
+}
+
+export const requestService = async (req, res) => {
+    const { service_name, type } = req.body;
+
+    const { error } = await supabase
+        .from('service_requests')
+        .insert({service_name, type })
+    if (error) return res.json(error.message);
+    
+    res.json('request sent.')
 }
