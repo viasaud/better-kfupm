@@ -17,13 +17,14 @@ const ReviewCard = (props) => {
       try {
         const response = await api.get(`/evaluations/${props.id}`);
         setData(response.data)
+        // setUpVote(data.upvotes[0].count);
       } catch (error) {
         setData([]);
       }
     };
 
     fetchData();
-  }, []);
+  }, [data]);
 
   // These are the constatnt for the card evaluation [average rating, number of evaluators, number of comments]
   const [rating, setRating] = useState("");
@@ -103,57 +104,44 @@ const ReviewCard = (props) => {
   const [reviewText, setReviewText] = useState("");
   const [ratingStar, setRatingStar] = useState("");
 
+
   const handleReviewSubmit = async (e) => {
-    e.preventDefault();
+    useEffect(() => {
+      e.preventDefault();
 
+      const postEvaluation = async () => {
 
-    // count the number of green stars to set the rating then post the data
-    const countGreenStars = async () => {
-      let count = 0;
-
-      for (let i = 1; i <= 5; i++) {
-        if (document.getElementById(`star${i}`).classList.contains("text-green-500")) {
-          count++;
+        let body = {
+          service_id: props.id,
+          review: reviewText,
+          rating: ratingStar,
+          access_token: localStorage.getItem('access_token')
         }
-      }
 
-      console.log(count);
-      setRatingStar(count);
-    };
+        var authOptions = {
+          method: "post",
+          url: `${api.defaults.baseURL}/addEvaluation`,
+          data: body,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          json: true,
+        };
 
+        axios(authOptions)
+          .then((response) => {
+            displayReviewForm();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
 
-    const postEvaluation = async () => {
-      let body = {
-        service_id: props.id,
-        review: reviewText,
-        rating: ratingStar,
-        access_token: localStorage.getItem('access_token')
-      }
-
-      var authOptions = {
-        method: "post",
-        url: `${api.defaults.baseURL}/addEvaluation`,
-        data: body,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        json: true,
       };
 
-      axios(authOptions)
-        .then((response) => {
-          displayReviewForm();
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      postEvaluation();
 
-    };
-
-    // call the function countGreenStars then call postEvaluation after countGreenStars is done
-    await countGreenStars();
-    await postEvaluation();
+    }
+    ), [reviewText, ratingStar]
   };
 
   //\\--------------------- End of the function to POST the data for the Review FORM --------------------//\\
@@ -212,7 +200,7 @@ const ReviewCard = (props) => {
 
     axios(authOptions)
       .then((response) => {
-        console.log(response.data);
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -230,8 +218,8 @@ const ReviewCard = (props) => {
     }
 
     var authOptions = {
-      method: "delete",
-      url: `${api.defaults.baseURL}/upvote`,
+      method: "post",
+      url: `${api.defaults.baseURL}/unvote`,
       data: body,
       headers: {
         "Content-Type": "application/json",
@@ -241,7 +229,7 @@ const ReviewCard = (props) => {
 
     axios(authOptions)
       .then((response) => {
-        console.log(response.data);
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -284,7 +272,7 @@ const ReviewCard = (props) => {
       <div className="shadow-lg flex flex-col place-self-center bg-jetBlack text-white h-auto w-72 p-6 md:mb-10 xl:mb-0 rounded-lg my-6">
         {/* Name of the place/E-servecies */}
         <div className="flex pb-4">
-          <a className="text-2xl font-mono font-semibold uppercase lg:text-2xl truncate" onClick={displayPreviousEvaluations}>{props.name}</a>
+          <a className="text-2xl font-mono font-semibold uppercase lg:text-2xl truncate cursor-pointer" onClick={displayPreviousEvaluations}>{props.name}</a>
         </div>
 
         {/* Rating and rating box percentage */}
@@ -346,11 +334,11 @@ const ReviewCard = (props) => {
               {/*Start Rating start div*/}
               <div className="text-center mb-4">
                 <div className="rating">
-                  <input type="radio" name="rating" id="star1" className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
-                  <input type="radio" name="rating" id="star2" className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
-                  <input type="radio" name="rating" id="star3" className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
-                  <input type="radio" name="rating" id="star4" className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
-                  <input type="radio" name="rating" id="star5" className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
+                  <input type="radio" name="rating" id="rating1" onClick={(e) => { setRatingStar(1) }} className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
+                  <input type="radio" name="rating" id="rating2" onClick={(e) => { setRatingStar(2) }} className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
+                  <input type="radio" name="rating" id="rating3" onClick={(e) => { setRatingStar(3) }} className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
+                  <input type="radio" name="rating" id="rating4" onClick={(e) => { setRatingStar(4) }} className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
+                  <input type="radio" name="rating" id="rating5" onClick={(e) => { setRatingStar(5) }} className="radio-lg mask mask-star-2 bg-green-500 text-green-500" />
                 </div>
               </div>
 
@@ -416,7 +404,7 @@ const ReviewCard = (props) => {
                     Date
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Upvote/Downvote
+                    Upvote
                   </th>
                 </tr>
               </thead>
@@ -478,7 +466,7 @@ const ReviewCard = (props) => {
                       </div>
                       <div className="flex justify-center">
                         <p className="mx-2">{data[key].upvotes[0].count}</p>
-                        <p className="mx-2">{data[key].upvotes[0].count}</p>
+                        {/* <p className="mx-2">{data[key].upvotes[0].count}</p> */}
                       </div>
                     </td>
                   </tr>
