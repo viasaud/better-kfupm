@@ -68,9 +68,10 @@ export const addEvaluation = async (req, res) => {
 export const upvoteEvaluation = async (req, res) => {
     const { evaluation_id, access_token } = req.body;
     const { data: { user } } = await supabase.auth.getUser(access_token);
+
     const { error } = await supabase
         .from('upvotes')
-        .insert({ upvoter_id: user.id, evlauation_id: evaluation_id })
+        .insert({ upvoter_id: user.id, evaluation_id: evaluation_id })
     if (error) return res.json(error.message);
 
     res.json('evaluation upvoted')
@@ -83,7 +84,7 @@ export const unvoteEvaluation = async (req, res) => {
     const { data } = await supabase
         .from('upvotes')
         .delete()
-        .match({ evlauation_id: evaluation_id, upvoter_id: user.id }).select()
+        .match({ evaluation_id: evaluation_id, upvoter_id: user.id }).select()
 
     //check if there is un evaluation unvoted then return success, else return error.
     if (data.length === 1) return res.json('evaluation unvoted.');
@@ -96,7 +97,7 @@ export const downvoteEvaluation = async (req, res) => {
     const { data: { user } } = await supabase.auth.getUser(access_token);
     const { error } = await supabase
         .from('downvotes')
-        .insert({ upvoter_id: user.id, evlauation_id: evaluation_id })
+        .insert({ upvoter_id: user.id, evaluation_id: evaluation_id })
     if (error) return res.json(error.message);
 
     res.json('evaluation downvoted')
@@ -109,7 +110,7 @@ export const unDownvoteEvaluation = async (req, res) => {
     const { data } = await supabase
         .from('downvotes')
         .delete()
-        .match({ evlauation_id: evaluation_id, upvoter_id: user.id }).select()
+        .match({ evaluation_id: evaluation_id, upvoter_id: user.id }).select()
 
     //check if there is un evaluation unvoted then return success, else return error.
     if (data.length === 1) return res.json('evaluation unvoted.');
@@ -132,7 +133,7 @@ export const addcomments = async (req, res) => {
     const { data: { user } } = await supabase.auth.getUser(access_token);
     const { error } = await supabase
         .from('comments')
-        .insert({ commenter_id: user.id, evlauation_id: evaluation_id , comment:comment})
+        .insert({ commenter_id: user.id, evaluation_id: evaluation_id , comment:comment})
     if (error) return res.json(error.message);
 
     res.send('comment created')
