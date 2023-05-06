@@ -32,7 +32,7 @@ export const signupUser = async (req, res) => {
     if (error) {
         return res.status(400).json(error.message);
     }
-    res.status(201).json({ userID: data.user.id, access_token: data.session.access_token })
+    res.status(201).json({ userID: data.user.id, role: data.user.role, access_token: data.session.access_token })
 }
 
 export const loginUser = async (req, res) => {
@@ -43,7 +43,7 @@ export const loginUser = async (req, res) => {
     if (error) {
         return res.status(400).json(error.message)
     }
-    res.status(200).json({ userID: data.user.id, access_token: data.session.access_token })
+    res.status(200).json({ userID: data.user.id, role: data.user.role, access_token: data.session.access_token })
 
 }
 
