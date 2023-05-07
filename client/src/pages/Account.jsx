@@ -3,7 +3,6 @@ import SignedNavbar from "../components/SignedNavbar";
 import api from "../api/posts";
 import axios from 'axios';
 
-var isServiceProvider = true;
 
 export default function Account() {
 
@@ -12,6 +11,8 @@ export default function Account() {
     const [userData, setUserData] = useState([]);
     const [previousEvaluations, setPreviousEvaluations] = useState([]);
     const [showAccountPage, setShowAccountPage] = useState(false);
+    const [showServiceProvider, setShowServiceProvider] = useState(false);
+    const [showAdmin, setShowAdmin] = useState(false);
 
     //\\--------------------- End of the const that store the account page data --------------------//\\
 
@@ -72,6 +73,13 @@ export default function Account() {
                     console.log(error);
                 });
         };
+
+        if (localStorage.getItem('role') === "provider") {
+            setShowServiceProvider(true);
+        }
+        else if (localStorage.getItem('role') === "admin") {
+            setShowAdmin(true);
+        }
 
         getUserData();
         getPreviousEvaluation();
@@ -244,7 +252,7 @@ export default function Account() {
                         </div>
 
                         {/* This will be visiable for service providers only */}
-                        {isServiceProvider && (
+                        {showServiceProvider && (
                             <>
                                 <p className="text-jetBlack font-Montserrat text-2xl font-semibold py-5 mt-10 w-fit block capitalize">
                                     request adding a service
@@ -300,46 +308,50 @@ export default function Account() {
                             </>
                         )}
 
-                        <p className="text-jetBlack font-Montserrat text-2xl font-semibold py-5 mt-10 w-fit block capitalize">
-                            {isServiceProvider ? "Evaluations on your services" : "My Previous Evaluations"}
-                        </p>
+                        {!showAdmin && (
+                            <>
+                                <p className="text-jetBlack font-Montserrat text-2xl font-semibold py-5 mt-10 w-fit block capitalize">
+                                    {showServiceProvider ? "Evaluations on your services" : "My Previous Evaluations"}
+                                </p>
 
-                        <div className="md:col-span-2">
-                            <div className="bg-jetBlack bg-opacity-10 rounded p-4">
-                                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                            <tr className="text-center">
-                                                <th scope="col" className="px-6 py-3">
-                                                    Evaluation
-                                                </th>
-                                                <th scope="col" className="px-6 py-3">
-                                                    Date
-                                                </th>
-                                                <th scope="col" className="px-6 py-3">
-                                                    Status
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {/* Previous Evaluations Table*/}
-                                            {previousEvaluations.map((value, key) => (
-                                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center">
-                                                    <td className="px-6 py-4">{previousEvaluations[key].services.name}</td>
-                                                    <td className="px-6 py-4">{previousEvaluations[key].created_at.substring(0, 10).split('-').reverse().join('-')}</td>
-                                                    <td className="px-6 py-4">{previousEvaluations[key].condition}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+                                <div className="md:col-span-2">
+                                    <div className="bg-jetBlack bg-opacity-10 rounded p-4">
+                                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                    <tr className="text-center">
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Evaluation
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Date
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
+                                                            Status
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {/* Previous Evaluations Table*/}
+                                                    {previousEvaluations.map((value, key) => (
+                                                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center">
+                                                            <td className="px-6 py-4">{previousEvaluations[key].services.name}</td>
+                                                            <td className="px-6 py-4">{previousEvaluations[key].created_at.substring(0, 10).split('-').reverse().join('-')}</td>
+                                                            <td className="px-6 py-4">{previousEvaluations[key].condition}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {/* If there is no previous evaluations */}
+                                        {previousEvaluations.length === 0 && (
+                                            <p className="text-xl font-Montserrat text-center text-jetBlack">You have not evaluated any service yet!</p>
+                                        )
+                                        }
+                                    </div>
                                 </div>
-                                {/* If there is no previous evaluations */}
-                                {previousEvaluations.length === 0 && (
-                                    <p className="text-xl font-Montserrat text-center text-jetBlack">You have not evaluated any service yet!</p>
-                                )
-                                }
-                            </div>
-                        </div>
+                            </>
+                        )}
                     </div>
                 </div>
             }

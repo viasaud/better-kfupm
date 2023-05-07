@@ -23,17 +23,9 @@ export default function ServiceCentersLayout() {
     fetchData();
   }, []);
 
-  // function to handle the search and filter the data
-  const [searchTerm, setSearchTerm] = useState("");
-
-  // dynamic search function
-  const getDataFromAPI = () => {
-
-  };
-
   return (
     <>
-      <div className=" h-screen">
+      <div className="bg-background">
         {/* in SignedNavbar, pass the name of the page as a prop */}
         <SignedNavbar name="Service Centers" />
         <div className="bg-background flex flex-col justify-center overflow-auto mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-10">

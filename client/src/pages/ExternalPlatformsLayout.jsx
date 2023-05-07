@@ -22,7 +22,7 @@ export default function ExternalPlatformsLayout() {
 
   return (
     <>
-      <div className=" h-screen">
+      <div className="bg-background">
         {/* in SignedNavbar, pass the name of the page as a prop */}
         <SignedNavbar name="External Platforms" />
 

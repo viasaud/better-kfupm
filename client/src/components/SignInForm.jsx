@@ -39,7 +39,18 @@ const SignInForm = () => {
             .then((response) => {
                 localStorage.setItem('access_token', response.data.access_token);
                 localStorage.setItem('userID', response.data.userID);
-                navigate("/service-centers")
+                if (response.data.role == "authenticated") {
+                    localStorage.setItem('role', "authenticated");
+                    window.location.href = "/service-centers";
+                }
+                else if (response.data.role == "provider") {
+                    localStorage.setItem('role', "provider");
+                    window.location.href = "/provider-service-centers";
+                }
+                else if (response.data.role == "admin") {
+                    localStorage.setItem('role', "admin");
+                    window.location.href = "/admin-service-centers";
+                }
             })
             .catch((error) => {
                 // This function will desplay the first name and last name field for the user because the user does not have an account yest
@@ -61,7 +72,7 @@ const SignInForm = () => {
             .then((response) => {
                 localStorage.setItem('access_token', response.data.access_token);
                 localStorage.setItem('userID', response.data.userID);
-                navigate("/service-centers")
+                window.location.href = "/service-centers";
             })
             .catch((error) => {
                 console.log(error);

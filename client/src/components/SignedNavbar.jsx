@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { useNavigate } from "react-router-dom"
+import React, { useState, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import ProfileIcon from "../assets/person-circle-outline.svg";
@@ -7,14 +7,34 @@ import ProfileIcon from "../assets/person-circle-outline.svg";
 
 export default function SignedNavbar(props) {
 
-  {
-    /* For routing: Just change the href below */
-  }
-  const navigation = [
-    { name: "Service Centers", href: "/service-centers" },
-    { name: "ePlatforms", href: "/e-platforms" },
-    { name: "External Platforms", href: "/external-platforms" },
-  ];
+  {/* For routing: Just change the href below */ }
+
+  const [navigation, setNavigation] = useState([]);
+
+  useEffect(() => {
+    if (localStorage.getItem("role") == 'authenticated') {
+      setNavigation([
+        { name: "Service Centers", href: "/service-centers" },
+        { name: "ePlatforms", href: "/e-platforms" },
+        { name: "External Platforms", href: "/external-platforms" },
+      ]);
+    }
+    else if (localStorage.getItem("role") == 'provider') {
+      setNavigation([
+        { name: "Service Centers", href: "/service-centers" },
+        { name: "ePlatforms", href: "/e-platforms" },
+        { name: "External Platforms", href: "/external-platforms" },
+      ]);
+    }
+    else if (localStorage.getItem("role") == 'admin') {
+      setNavigation([
+        { name: "Service Centers", href: "/admin-service-centers" },
+        { name: "ePlatforms", href: "/admin-e-platforms" },
+        { name: "External Platforms", href: "/admin-external-platforms" },
+      ]);
+    }
+  }, [])
+
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
