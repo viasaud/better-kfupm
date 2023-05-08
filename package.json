@@ -2,6 +2,7 @@
   "name": "better-kfupm",
   "private": true,
   "version": "0.0.0",
+  "homepage": "./",
   "type": "module",
   "scripts": {
     "start": "npm run dev",
@@ -47,6 +48,5 @@
   "bugs": {
     "url": "https://github.com/SaudFi/better-kfupm/issues"
   },
-  "homepage": "https://github.com/SaudFi/better-kfupm#readme",
   "description": ""
 }
