@@ -44,7 +44,6 @@ export default function SignedNavbar(props) {
     localStorage.removeItem("access_token");
     localStorage.removeItem("userID");
     window.location.href = "/";
-
   }
 
 
@@ -67,7 +66,18 @@ export default function SignedNavbar(props) {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex items-center md:mr-auto">
-                  <a href="/service-centers" className="font-NotoSerif text-2xl text-jetBlack">
+                  <a onClick={() => {
+                    if (localStorage.getItem("role") == 'authenticated') {
+                      window.location.href = "/service-centers";
+                    }
+                    else if (localStorage.getItem("role") == 'provider') {
+                      window.location.href = "/service-centers";
+                    }
+                    else if (localStorage.getItem("role") == 'admin') {
+                      window.location.href = "/admin-service-centers";
+                    }
+                  }
+                  } className="font-NotoSerif text-2xl text-jetBlack cursor-pointer">
                     BetterKFUPM
                   </a>
                 </div>
