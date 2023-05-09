@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import SignedNavbar from "../components/SignedNavbar";
+import Footer from "../components/Footer";
 import api from "../api/posts";
 import axios from 'axios';
 
@@ -135,9 +136,9 @@ export default function Account() {
     return (
         <>
             {showAccountPage && previousEvaluations &&
-                <div className=" h-screen">
+                <div className="bg-background min-h-screen">
                     <SignedNavbar />
-                    <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl px-2 pb-6 sm:px-6 lg:px-8">
                         <p className="text-jetBlack font-Montserrat text-2xl font-semibold py-5 mt-10 w-fit block">Profile</p>
 
                         <div className="md:col-span-2">
@@ -353,6 +354,7 @@ export default function Account() {
                             </>
                         )}
                     </div>
+                    <Footer />
                 </div>
             }
         </>

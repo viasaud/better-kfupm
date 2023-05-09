@@ -17,14 +17,14 @@ const ReviewCard = (props) => {
       try {
         const response = await api.get(`/evaluations/${props.id}`);
         setData(response.data)
-        // setUpVote(data.upvotes[0].count);
       } catch (error) {
         setData([]);
       }
     };
 
     fetchData();
-  }, [data]);
+  }, []);
+
 
   // These are the constatnt for the card evaluation [average rating, number of evaluators, number of comments]
   const [rating, setRating] = useState("");
@@ -63,6 +63,7 @@ const ReviewCard = (props) => {
     };
     averageRating();
     countComment();
+
   }, [data]);
 
   // function to change the color of the rating box
@@ -104,45 +105,44 @@ const ReviewCard = (props) => {
   const [reviewText, setReviewText] = useState("");
   const [ratingStar, setRatingStar] = useState("");
 
-
   const handleReviewSubmit = async (e) => {
-    useEffect(() => {
-      e.preventDefault();
+    e.preventDefault();
 
-      const postEvaluation = async () => {
-
-        let body = {
-          service_id: props.id,
-          review: reviewText,
-          rating: ratingStar,
-          access_token: localStorage.getItem('access_token')
-        }
-
-        var authOptions = {
-          method: "post",
-          url: `${api.defaults.baseURL}/addEvaluation`,
-          data: body,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          json: true,
-        };
-
-        axios(authOptions)
-          .then((response) => {
-            displayReviewForm();
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
+    const postEvaluation = async () => {
+      let body = {
+        service_id: props.id,
+        review: reviewText,
+        rating: ratingStar,
+        access_token: localStorage.getItem('access_token')
       };
 
-      postEvaluation();
+      var authOptions = {
+        method: "post",
+        url: `${api.defaults.baseURL}/addEvaluation`,
+        data: body,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        json: true,
+      };
 
-    }
-    ), [reviewText, ratingStar]
+      axios(authOptions)
+        .then((response) => {
+          displayReviewForm();
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    postEvaluation();
   };
+
+
+
+  // render function
+
 
   //\\--------------------- End of the function to POST the data for the Review FORM --------------------//\\
 
@@ -181,6 +181,7 @@ const ReviewCard = (props) => {
 
   // TODO: create a function to get the previous evaluations for the service
   // upvote function for the previous evaluations
+
   const upvote = async (id, access_token) => {
 
     let body = {
@@ -200,6 +201,7 @@ const ReviewCard = (props) => {
 
     axios(authOptionsUpvote)
       .then((response) => {
+
       })
       .catch((error) => {
 

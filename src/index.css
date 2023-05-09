@@ -3,9 +3,12 @@
 @tailwind utilities;
 
 #signInDiv,
-#reviewCardDiv, #previousEvaluationsDiv {
+#reviewCardDiv,
+#previousEvaluationsDiv {
   position: fixed;
   left: 50%;
   top: 40%;
   transform: translate(-50%, -50%);
+  max-width: 90%;
+  margin: 0 auto;
 }

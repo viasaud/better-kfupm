@@ -3,22 +3,22 @@ import Footer from "../components/Footer";
 
 export default function FAQLayout() {
   return (
-    <div className="bg-background h-screen">
+    <div className="bg-background min-h-screen">
       <Navbar name="FAQ" />
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-10">
         <h1 className="font-Montserrat text-jetBlack font-semibold text-4xl">FAQ</h1>
         <Question text="What is BetterKFUPM and why should I use it?" />
-        <Answer text="lorem lorem lorem lorem" />
-        <Question text="What is BetterKFUPM and why should I use iM and why should I use iM and why should I use iM and why should I use it?" />
-        <Answer text="lorem lorem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem lorem" />
+        <Answer text=" BetterKFUPM is a website allow KFUPM students to provide feedback to all KFUPM buildings, KFUPM E-services, External services
+          inside the university Campus." />
+        <Question text="What is the benifet of using BetterKFUPM?" />
+        <Answer text="BetterKfupm will help KFUPM and external servises providors to receive complaints and positive feedback to their services or
+          product that they provide." />
         <Question text="What is BetterKFUPM and why should I use it?" />
-        <Answer text="lorem lorem lorem lorem" />
-        <Question text="What is BetterKFUPM and why should I use iM and why should I use iM and why should I use iM and why should I use it?" />
-        <Answer text="lorem lorem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem lorem" />
-        <Question text="What is BetterKFUPM and why should I use it?" />
-        <Answer text="lorem lorem lorem lorem" />
-        <Question text="What is BetterKFUPM and why should I use iM and why should I use iM and why should I use iM and why should I use it?" />
-        <Answer text="lorem lorem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem loremem lorem lorem" />
+        <Answer text=" BetterKFUPM is a website allow KFUPM students to provide feedback to all KFUPM buildings, KFUPM E-services, External services
+          inside the university Campus." />
+        <Question text="What is the benifet of using BetterKFUPM?" />
+        <Answer text="BetterKfupm will help KFUPM and external servises providors to receive complaints and positive feedback to their services or
+          product that they provide." />
       </div>
       <Footer />
     </div>
