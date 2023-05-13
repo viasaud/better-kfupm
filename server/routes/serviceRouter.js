@@ -13,6 +13,7 @@ import { getServices,
 const router = express.Router()
 
 router.get('/service/:type', getServices);
+router.get('/evaluations/:service_id&:access_token', getEvaluations);
 router.get('/evaluations/:service_id', getEvaluations);
 router.post('/addEvaluation', requireAuth, addEvaluation);
 router.post('/upvote', requireAuth, upvoteEvaluation);

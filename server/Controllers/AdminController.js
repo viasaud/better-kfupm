@@ -9,3 +9,15 @@ export const updateRole = async (req, res) => {
   )
   res.send(user)
 }
+
+export const updateEvaluation = async (req, res) => {
+  const {evaluation_id, condition} = req.body
+
+  const {error} = await supabase
+  .from('evaluations')
+  .update({ condition: condition })
+  .eq('id',evaluation_id )
+    if(error) res.json(error)
+
+  res.json({'evaluation set to': condition})
+}

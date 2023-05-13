@@ -2,9 +2,9 @@ import supabase from '../supabaseClient.js';
 
 export const getServices = async (req, res) => {
     const type = req.params.type
-    let { data } = await supabase
+    let {data} = await supabase
         .from('services')
-        .select("*")
+        .select("*, evaluations(count)")
         .eq('type', type)
     if (data.length != 0) {
         return res.status(200).json(data)
@@ -15,6 +15,9 @@ export const getServices = async (req, res) => {
 
 export const getEvaluations = async (req, res) => {
     const service_id = req.params.service_id
+    const { access_token } = req.params
+    const { data: { user } } = await supabase.auth.getUser(access_token);
+
     const check_service = await supabase
         .from('services')
         .select(`*`)
@@ -25,11 +28,25 @@ export const getEvaluations = async (req, res) => {
     if (check_service.data.length == 0) {
         res.status(404).json('entity doees not exist.')
     } else {
-        //returnes the evaluations along ith the evaluator information and the upvotes
-        const { data } = await supabase
-            .from('evaluations')
-            .select(`* , profiles (first_name, last_name), upvotes(count), downvotes(count) `)
-            .eq('service_id', service_id)
+        if (user) {
+            //returnes the evaluations along ith the evaluator information and the upvotes
+            if (user.role === 'admin') {
+                var { data } = await supabase
+                    .from('evaluations')
+                    .select(`* , profiles (first_name, last_name), upvotes(count), downvotes(count) `)
+                    .match({ service_id: service_id })
+            } else {
+                var { data } = await supabase
+                    .from('evaluations')
+                    .select(`* , profiles (first_name, last_name), upvotes(count), downvotes(count) `)
+                    .match({ service_id: service_id, condition: 'shown' })
+            }
+        } else {
+            var { data } = await supabase
+                .from('evaluations')
+                .select(`* , profiles (first_name, last_name), upvotes(count), downvotes(count) `)
+                .match({ service_id: service_id, condition: 'shown' })
+        }
 
         if (data) {
             if (data.length != 0) {
@@ -122,18 +139,18 @@ export const requestService = async (req, res) => {
 
     const { error } = await supabase
         .from('service_requests')
-        .insert({service_name, type })
+        .insert({ service_name, type })
     if (error) return res.json(error.message);
-    
+
     res.json('request sent.')
 }
 
 export const addcomments = async (req, res) => {
-    const { evaluation_id, access_token, comment} = req.body;
+    const { evaluation_id, access_token, comment } = req.body;
     const { data: { user } } = await supabase.auth.getUser(access_token);
     const { error } = await supabase
         .from('comments')
-        .insert({ commenter_id: user.id, evaluation_id: evaluation_id , comment:comment})
+        .insert({ commenter_id: user.id, evaluation_id: evaluation_id, comment: comment })
     if (error) return res.json(error.message);
 
     res.send('comment created')
