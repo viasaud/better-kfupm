@@ -1,8 +1,8 @@
 import express from 'express';
-import {updateRole} from '../Controllers/adminController.js'
+import {updateEvaluation} from '../Controllers/AdminController.js'
 import { requireAdmin } from '../middleware/authMiddleware.js';
 const router = express.Router()
 
-router.post('/update-user',requireAdmin, updateRole);
+router.post('/update-evaluation' ,requireAdmin, updateEvaluation);
 
 export default router
