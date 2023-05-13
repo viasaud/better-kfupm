@@ -11,19 +11,19 @@ const ReviewCard = (props) => {
   const [data, setData] = useState([]);
 
   // This useEffect fetches the data from the database
+  const fetchData = async () => {
+    try {
+      const response = await api.get(`/evaluations/${props.id}`);
+      setData(response.data);
+    } catch (error) {
+      setData([]);
+    }
+  };
+
   useEffect(() => {
-
-    const fetchData = async () => {
-      try {
-        const response = await api.get(`/evaluations/${props.id}`);
-        setData(response.data)
-      } catch (error) {
-        setData([]);
-      }
-    };
-
     fetchData();
   }, []);
+
 
 
   // These are the constatnt for the card evaluation [average rating, number of evaluators, number of comments]
@@ -201,7 +201,7 @@ const ReviewCard = (props) => {
 
     axios(authOptionsUpvote)
       .then((response) => {
-
+        fetchData();
       })
       .catch((error) => {
 
@@ -229,6 +229,7 @@ const ReviewCard = (props) => {
 
     axios(authOptions)
       .then((response) => {
+        fetchData();
       })
       .catch((error) => {
       });

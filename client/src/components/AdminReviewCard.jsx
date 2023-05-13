@@ -11,20 +11,18 @@ const AdminReviewCard = (props) => {
     const [data, setData] = useState([]);
 
     // This useEffect fetches the data from the database
+    const fetchData = async () => {
+        try {
+            const response = await api.get(`/evaluations/${props.id}`);
+            setData(response.data);
+        } catch (error) {
+            setData([]);
+        }
+    };
+
     useEffect(() => {
-
-        const fetchData = async () => {
-            try {
-                const response = await api.get(`/evaluations/${props.id}`);
-                setData(response.data)
-                // setUpVote(data.upvotes[0].count);
-            } catch (error) {
-                setData([]);
-            }
-        };
-
         fetchData();
-    }, [data]);
+    }, []);
 
     // These are the constatnt for the card evaluation [average rating, number of evaluators, number of comments]
     const [rating, setRating] = useState("");
@@ -106,17 +104,17 @@ const AdminReviewCard = (props) => {
 
     //\\--------------------- This function is already created above at the begining of the code, [data,setData] --------------------//\\
 
-    // upvote function for the previous evaluations
-    const upvote = async (id, access_token) => {
-
+    // function to hide the evaluation
+    const hideEvaluation = async (id, condition, access_token) => {
         let body = {
             evaluation_id: id,
+            condition: condition,
             access_token: access_token
         }
 
         var authOptionsUpvote = {
             method: "post",
-            url: `${api.defaults.baseURL}/upvote`,
+            url: `${api.defaults.baseURL}/update-evaluation`,
             data: body,
             headers: {
                 "Content-Type": "application/json",
@@ -126,40 +124,33 @@ const AdminReviewCard = (props) => {
 
         axios(authOptionsUpvote)
             .then((response) => {
+                fetchPreviousData();
             })
             .catch((error) => {
 
-            });
-    };
-
-    // downvote function for the previous evaluations
-    const downvote = async (id, access_token) => {
-
-        let body = {
-            evaluation_id: id,
-            access_token: access_token
-        }
-
-        var authOptions = {
-            method: "post",
-            url: `${api.defaults.baseURL}/unvote`,
-            data: body,
-            headers: {
-                "Content-Type": "application/json",
-            },
-            json: true,
-        };
-
-        axios(authOptions)
-            .then((response) => {
-            })
-            .catch((error) => {
             });
     };
 
     //\\--------------------- End of the function to get the Previous Evaluations for the service --------------------//\\
 
     //\\--------------------- These are the functions for the Previous evaluation to show/disappear --------------------//\\
+
+    const [previousData, setPreviousData] = useState([]);
+
+    // This useEffect fetches the data from the database
+    const fetchPreviousData = async () => {
+        try {
+            const response = await api.get(`/evaluations/${props.id}&${localStorage.getItem("access_token")}`);
+            setPreviousData(response.data);
+            console.log(localStorage.getItem("access_token"))
+        } catch (error) {
+            setPreviousData([]);
+        }
+    };
+
+    useEffect(() => {
+        fetchPreviousData();
+    }, []);
 
     // const to set the state of the review form
     const [showPreviousEvaluations, setShowPreviousEvaluations] = React.useState(false);
@@ -272,13 +263,24 @@ const AdminReviewCard = (props) => {
                             </thead>
                             <tbody>
                                 {/* map through the reviews array and display the reviews */}
-                                {data.map((value, key) => (
+                                {previousData.map((value, key) => (
                                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center">
-                                        <td className="px-6 py-4">{data[key].review}</td>
-                                        <td className="px-6 py-4">{data[key].rating}</td>
-                                        <td className="px-6 py-4">{data[key].created_at.substring(0, 10).split('-').reverse().join('-')}</td>
-                                        <td className="px-6 py-4">{data[key].condition}</td>
-                                        <a href=""><td className="px-6 py-4">Hide</td></a>
+                                        <td className="px-6 py-4">{previousData[key].review}</td>
+                                        <td className="px-6 py-4">{previousData[key].rating}</td>
+                                        <td className="px-6 py-4">{previousData[key].created_at.substring(0, 10).split('-').reverse().join('-')}</td>
+                                        <td className="px-6 py-4">{previousData[key].condition}</td>
+                                        <a href="" onClick={() => {
+                                            if (previousData[key].condition === 'hidden') {
+                                                if (window.confirm("Are you sure you want to show this evaluation?")) {
+                                                    hideEvaluation(previousData[key].id, 'shown', localStorage.getItem('access_token'));
+                                                }
+                                            }
+                                            else {
+                                                if (window.confirm("Are you sure you want to hide this evaluation?")) {
+                                                    hideEvaluation(previousData[key].id, 'hidden', localStorage.getItem('access_token'));
+                                                }
+                                            }
+                                        }}><td className="px-6 py-4 underline text-blue-500 decoration-blue-500">change evaluation state</td></a>
                                     </tr>
                                 ))}
                             </tbody>
