@@ -125,6 +125,7 @@ const AdminReviewCard = (props) => {
         axios(authOptionsUpvote)
             .then((response) => {
                 fetchPreviousData();
+                console.log(response);
             })
             .catch((error) => {
 

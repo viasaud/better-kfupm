@@ -42,7 +42,6 @@ export default function Account() {
                 .then((response) => {
                     setUserData(response.data);
                     setShowAccountPage(true);
-                    console.log(localStorage.getItem('access_token'));
                 })
                 .catch((error) => {
                     console.log(error);
@@ -325,6 +324,9 @@ export default function Account() {
                                                             Evaluation
                                                         </th>
                                                         <th scope="col" className="px-6 py-3">
+                                                            Text
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3">
                                                             Date
                                                         </th>
                                                         <th scope="col" className="px-6 py-3">
@@ -337,6 +339,7 @@ export default function Account() {
                                                     {previousEvaluations.map((value, key) => (
                                                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center">
                                                             <td className="px-6 py-4">{previousEvaluations[key].services.name}</td>
+                                                            <td className="px-6 py-4">{previousEvaluations[key].review}</td>
                                                             <td className="px-6 py-4">{previousEvaluations[key].created_at.substring(0, 10).split('-').reverse().join('-')}</td>
                                                             <td className="px-6 py-4">{previousEvaluations[key].condition}</td>
                                                         </tr>

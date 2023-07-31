@@ -40,8 +40,6 @@ export default function AdminServiceCentersLayout() {
         );
     };
 
-
-
     const handleSubmit = (event) => {
         event.preventDefault();
         setSearchTerm(event.target.elements.search.value);

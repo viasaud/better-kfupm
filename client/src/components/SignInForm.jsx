@@ -72,7 +72,18 @@ const SignInForm = () => {
             .then((response) => {
                 localStorage.setItem('access_token', response.data.access_token);
                 localStorage.setItem('userID', response.data.userID);
-                window.location.href = "/service-centers";
+                if (response.data.role == "authenticated") {
+                    localStorage.setItem('role', "authenticated");
+                    window.location.href = "/service-centers";
+                }
+                else if (response.data.role == "provider") {
+                    localStorage.setItem('role', "provider");
+                    window.location.href = "/provider-service-centers";
+                }
+                else if (response.data.role == "admin") {
+                    localStorage.setItem('role', "admin");
+                    window.location.href = "/admin-service-centers";
+                }
             })
             .catch((error) => {
                 console.log(error);

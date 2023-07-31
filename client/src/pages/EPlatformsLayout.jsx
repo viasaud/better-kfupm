@@ -11,16 +11,17 @@ export default function EPlatformsLayout() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get("service/int");
-        setData(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
 
+  const fetchData = async () => {
+    try {
+      const response = await api.get("service/int");
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
